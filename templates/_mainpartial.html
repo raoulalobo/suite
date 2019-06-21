@@ -1,0 +1,15 @@
+{% if user.is_authenticated%}
+
+    <!-- 
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'pneus_app:list.pneu' %}">Pneus</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'plaintes_app:list.plaintes' %}">Plaintes</a>
+    </li>
+    -->
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'colis_apps:list.coli' %}">Colis</a>
+    </li>
+    
+{% endif %}

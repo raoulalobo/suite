@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+    
+
+    {% load static %}
+    <link href="{% static 'icofont/icofont.css' %}" rel='stylesheet'>
+    <link href="{% static 'styles/ionicons/ionicons.min.css' %}" rel='stylesheet'>
+    <link href="{% static 'styles/site.css' %}" rel='stylesheet'>
+    <link href="{% static 'styles/useiconic/css/open-iconic-bootstrap.css' %}" rel='stylesheet'>
+    <script src="{% static 'js/app.js' %}"></script>
+
+    {# Load the tag library #}
+    {% load bootstrap4 %}
+
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+
+    {# Display django.contrib.messages as Bootstrap alerts #}
+
+
+    {% block extrahead %} {% endblock %}
+
+    {% block 'head' %} <title> Welcome </title> {% endblock %}
+    
+
+  </head>
+
+<body>
+    
+<!-- NavBar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+  {% include '_logopartial.html' %}
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    
+    <ul class="navbar-nav mr-auto">
+
+      {% include '_mainpartial.html' %}
+
+    </ul>
+
+    {% include '_loginpartial.html' %}
+
+    
+
+  </div>
+</nav>
+    
+    <div class="container">
+        <div class="starter-template">
+            {% if messages %}
+
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+            {% endfor %}
+
+            {% endif %}
+
+            {% block 'title' %} {% endblock %}
+
+            {% block 'content' %} {% endblock %}
+        </div>
+    </div>
+    
+    
+    {% block foot-javascript %} {% endblock %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    
+  </body>
+
+</html>

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+
+{% block extrahead %}
+    {{ pneu_form.media }}
+{% endblock %}
+
+
+
+{% block title %} {% endblock %}
+
+{% block 'content' %}
+   
+    <h2>Ajouter une plainte</h2>
+
+    <div class="row">
+        <div class="add-button"> <a href="{% url 'pneus_app:list.pneu' %}" class="btn btn-secondary btn-sm app"> <span class="oi oi-arrow-left"></span> Revenir a la liste des pneus </a> </div>
+    </div>
+
+    <div class="col-sm-12 col-md-7">
+
+        <form method="post">
+
+            {% csrf_token %}
+            {% bootstrap_form pneu_form %}
+           
+            <button type="submit" class="btn btn-default btn-sm">Ajouter</button>
+        
+        </form>
+
+    </div>
+
+    <div class="col-sm-12 col-md-10">
+    <h4>Instructions : </h4>Remplir tous les champs du formulaire et valider .
+
+    </div>
+
+{% endblock %}
+
+{% block foot-javascript %} {% endblock %}

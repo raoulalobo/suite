@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+{% block extrahead %} {{ pneus.form.media }} {% endblock %}
+
+{% block title %}{% endblock %}
+
+{% block 'content' %}
+   
+    <div class='row'>
+        <h4> {{pneus.qs|length}} resultat(s) trouve(s)
+
+        {% if sess_req %}
+            pour la derniere recherche en memoire.
+        {% else %}    
+            aucune recherche en memoire </br> les elements du jour sont affiches par defaut .
+        {% endif %}
+
+        </h4>
+    
+    </div>
+    
+
+    <div class="row">req : {{req}}</div></br> 
+    <div class="row">sess : {{sess}}</div>
+
+
+
+    <div class="row">
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form method="get">
+                        {% csrf_token %}
+                            
+                        <div class="row" >
+
+                            <div class="col-md-6">
+                                {{ pneus.form.date_lte|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-6">
+                                {{ pneus.form.date_gte|as_crispy_field }}
+                            </div>
+                        
+                        </div>
+
+                        <div class="row" >
+
+                            <div class="col-md-6">
+                                {{ pneus.form.immatriculation|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-6">
+                                {{ pneus.form.marque_pneu|as_crispy_field }}
+                            </div>
+                        
+                        </div>
+
+                        <button type="submit">Lancer la recherche</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="add-button"> <a href="{% url 'pneus_app:add.pneu'  %}" class="btn btn-primary btn-sm"> <span class="oi oi-plus"></span> Ajouter Pneu</a> </div>
+        <div class="add-button"> <a href="{% url 'pneus_app:export.pneu'  %}" class="btn btn-success btn-sm">Export csv</a> </div>
+    </div> 
+    
+    
+    <div class="row">
+        
+        <div class="col-12">
+        {% if pneus.qs %} {# Si il existe des plaintes afficher le tableau sinon ne rien afficher #}
+            <div class="table-responsive">
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Immatriculation</th>
+                            <th class='d-none d-lg-block'>Marque_pneu</th>
+                            <th>Date</th>
+                            <th class='d-none d-lg-block'>Nbr_pneu</th>
+                        </tr>
+                    </thead>
+                        
+                    <tbody>
+                        
+                        {% for pneu in pneus.qs %} {# Lire les plaintes trouvees  #}
+                            <tr>
+                                <td>
+                                    {{ forloop.counter }} {# Comptage auto. #}
+                                </td>
+
+                                <td>
+                                    <a href="{% url 'pneus_app:detail.pneu' pneu.id %}"><ion-icon name="information-circle-outline"></ion-icon></a> 
+                                    <a href="{% url 'pneus_app:update.pneu' pneu.id %}"><ion-icon name="create"></ion-icon></a>
+                                    {{pneu.immatriculation}}
+                                </td>
+                                <td class='d-none d-lg-block'>{{pneu.marque_pneu}}</td>
+                                <td>{{pneu.date}}</td>
+                                <td class='d-none d-lg-block'>{{pneu.nbr_pneu}}</td>
+                            </tr>
+                        
+                        {% endfor %}
+                    </tbody>
+                </table>
+        
+            </div>
+        {% endif %}
+        </div>
+
+    </div>    
+    
+    
+
+
+{% endblock %}
+
+{% block foot-javascript %} {% endblock %}
+

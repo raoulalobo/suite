@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+
+{% block extrahead %} {% endblock %}
+
+{% block title %}{% endblock %}
+
+{% block 'content' %}
+   
+    <h2> {{plaintes|length}} resultat(s) trouve(s)</h2>
+
+    <div class="add-button"> <a href="{% url 'plaintes_app:add.plainte'  %}" class="btn btn-primary btn-sm"> <span class="oi oi-plus"></span> Ajouter Plainte</a> </div>
+    
+    
+    {% if plaintes %} {# Si il existe des plaintes afficher le tableau sinon ne rien afficher #}
+
+        <div>
+
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Raison</th>
+                    <th scope="col">date</th>
+                    <th scope="col">status</th>
+                    <th scope="col">ville</th>
+                    <th scope="col">plaignant</th>
+                    <th scope="col">telephone</th>
+                    <th scope="col">detail</th>
+                    </tr>
+                </thead>
+                    
+                <tbody>
+                    
+                    {% for plainte in plaintes %} {# Lire les plaintes trouvees  #}
+                        <tr>
+                            <th scope="row">
+                                <a href="{% url 'plaintes_app:detail.plainte' plainte.id %}" >
+                                    {{ forloop.counter }} {# Comptage auto. #}
+                                </a>
+                            </th> 
+                            <td>{{plainte.raison_plainte}}</td>
+                            <td>{{plainte.dateheure}}</td>
+                            <td>{{plainte.etat_plainte}}</td>
+                            <td>{{plainte.ville_plainte}}</td>
+                            <td>{{plainte.plaignant}}</td>
+                            <td>{{plainte.telephone_p}}</td>
+                            <td>{{plainte.detail_plainte}}</td>
+                        </tr>
+                    
+                    {% endfor %}
+                </tbody>
+            </table>
+    
+        </div>
+    
+    {% endif %}
+
+        <div id="id_username"> Target </div>
+
+
+{% endblock %}
+
+{% block foot-javascript %} 
+
+    <script>
+        $( "#id_username" ).click(function() {
+            console.log( event.target.id );
+        });
+    </script>
+
+{% endblock %}
+

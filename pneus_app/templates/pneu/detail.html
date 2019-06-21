@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block extrahead %} {% endblock %}
+
+{% block title %}{% endblock %}
+
+{% block 'content' %}
+
+    <h2>Details du changement de pneu</h2>
+
+
+
+    <div class="row ">
+        <div class="add-button"> <a href="{% url 'pneus_app:list.pneu' %}" class="btn btn-secondary btn-sm app"> <span class="oi oi-arrow-left"></span> Revenir a la liste des pneus </a> </div>
+    </div>
+
+    <div class="row add-button">
+        
+        <div class="col-sm-12 col-md-5">
+            <u class="test">Date :</u> {{item.date}} </br>
+            <u class="test">Immatriculation :</u> {{item.immatriculation}} </br>
+            <u class="test">Kilometrage :</u> {{item.kilometrage}}</br>
+            <u class="test">Marque :</u> {{item.marque_pneu}}</br>
+            <u class="test">Nbr de pneus:</u> {{item.nbr_pneu}}</br>
+            <u class="test">Responsable :</u> {{item.responsable}}</br>
+            <u class="test">Chauffeur :</u> {{item.chauffeur}}</br>
+        </div>
+        
+        <div class="col-sm-12 col-md-7">
+            <div >
+                <u class="test">Observations :</u> </br>{{item.observation}} 
+            </div>
+            <div>
+        </div>
+
+        <div>
+                      
+        </div>
+
+    </div>
+
+    <div class="row ">
+        <div class="add-button"> 
+            <a href="#" class="btn btn-danger btn-sm app"> <span class="oi oi-trash"></span> Supprimer </a>
+        </div>
+    </div>
+
+    <div class="row"></div>
+
+{% endblock %}
+
+{% block foot-javascript %} {% endblock %}
+
+
+
+
+

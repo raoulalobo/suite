@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+
+{% block extrahead %} {% endblock %}
+
+{% block title %}{% endblock %}
+
+{% block 'content' %}
+   
+    <h2> {{pneus|length}} resultat(s) trouve(s)</h2>
+
+    <div class="add-button"> <a href="{% url 'pneus_app:add.pneu'  %}" class="btn btn-primary btn-sm"> <span class="oi oi-plus"></span> Ajouter Pneu</a> </div>
+    
+    
+    {% if pneus %} {# Si il existe des plaintes afficher le tableau sinon ne rien afficher #}
+
+        <div>
+
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">date</th>
+                    <th scope="col">immatriculation</th>
+                    <th scope="col">kmetrage</th>
+                    <th scope="col">marque pneu</th>
+                    <th scope="col">nbr pneu</th>
+                    <th scope="col">chauffeur</th>
+                    </tr>
+                </thead>
+                    
+                <tbody>
+                    
+                    {% for pneu in pneus %} {# Lire les plaintes trouvees  #}
+                        <tr>
+                            <th scope="row">
+                                <a href="#" >
+                                    {{ forloop.counter }} {# Comptage auto. #}
+                                </a>
+                            </th> 
+                            <td>{{pneu.date}}</td>
+                            <td>{{pneu.immatriculation}}</td>
+                            <td>{{pneu.kilometrage}}</td>
+                            <td>{{pneu.marque_pneu}}</td>
+                            <td>{{pneu.nbr_pneu}}</td>
+                            <td>{{pneu.chauffeur}}</td>
+                        </tr>
+                    
+                    {% endfor %}
+                </tbody>
+            </table>
+    
+        </div>
+    
+    {% endif %}
+
+
+{% endblock %}
+
+{% block foot-javascript %} {% endblock %}
+

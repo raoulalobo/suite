@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+
+{% block extrahead %}
+    {{ coli_form.media }}
+    {{ file_form.media }}
+{% endblock %}
+
+
+
+{% block title %} {% endblock %}
+
+{% block 'content' %}
+   
+    <h2>Ajouter 01 colis</h2>
+
+    <div class="row">
+        <div class="add-button"> <a href="{% url 'colis_apps:list.coli'  %}" class="btn btn-secondary btn-sm app"> <span class="oi oi-arrow-left"></span> Revenir a la liste </a> </div>
+    </div>
+
+    <div class="col-sm-12 col-md-7">
+
+        <form method="post" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            {% bootstrap_form coli_form %}
+            {% bootstrap_form file_form %}
+            {% for j in joint %}
+                <div>
+                    {{j.file}} <a href="{% url 'colis_apps:delete.file' j.id j.coli_id %}" > delete </a>
+                </div>
+            {% endfor %}
+            </br>
+            <button type="submit" class="btn btn-default btn-sm">Ajouter</button>
+        
+        </form>
+
+    </div>
+
+    <div class="col-sm-12 col-md-10">
+    <h4>Instructions : </h4>Remplir tous les champs du formulaire et valider .
+
+    </div>
+
+{% endblock %}
+
+{% block foot-javascript %} {% endblock %}

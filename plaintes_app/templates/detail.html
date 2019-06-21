@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block extrahead %} {% endblock %}
+
+{% block title %}{% endblock %}
+
+{% block 'content' %}
+
+    <h2>Details de la plainte</h2>
+
+
+
+    <div class="row ">
+        <div class="add-button"> <a href="{% url 'plaintes:list.plaintes'  %}" class="btn btn-secondary btn-sm app"> <span class="oi oi-arrow-left"></span> Revenir a la liste des plaintes </a> </div>
+    </div>
+
+    <div class="row add-button">
+        
+        <div class="col-sm-12 col-md-6">
+            <u class="test">Date :</u> {{item.dateheure}} </br>
+            <u class="test">Statut :</u> {{item.etat_plainte}} </br>
+            <u class="test">Raison :</u> {{item.raison_plainte}}</br>
+            <u class="test">Raison :</u> {{item.raison_plainte}}</br>
+            <u class="test">Nom Plaingnant :</u> {{item.plaignant}}</br>
+            <u class="test">Phone Plaignant :</u> {{item.telephone_p}}</br>
+            <u class="test">Immatriculation :</u> {{item.immatriculation}}</br>
+            <u class="test">Numero Colis :</u> {{item.numero_colis}}</br>
+        </div>
+        
+        <div class="col-sm-12 col-md-6">
+            
+            <div >
+                <u class="test">Details :</u> </br>{{item.detail_plainte}} 
+            </div>
+            
+            <div >
+                <u class="test">Resolution et Observations :</u> </br>{{item.resolution_observation}} 
+            </div>
+            <div>
+        </div>
+
+        <div class="col-sm-12 col-md-6">
+                {% for f in files %}
+        
+                    <!-- Modal recu-->
+
+                    <div class="modal fade" id={{f.id}} tabindex="-1" role="dialog" >
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <img src="{{f.file.url}}" class="img-fluid" alt="...">
+                            </div>
+
+                            <div class="modal-footer">
+                                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- fin Modal -->
+
+                    <u class="pointer" data-toggle="modal" data-target=#{{f.id}} >
+                        image {{ forloop.counter }} <!-- {{f.file.name}} -->
+                    </u></br>
+
+                {% endfor %}       
+        </div>
+
+    </div>
+
+    <div class="row ">
+        <div class="add-button"> 
+            <a href="{% url 'plaintes:update.plainte'  item.id %}" class="btn btn-default btn-sm app"> <span class="oi oi-pencil"></span> Modifier </a> 
+        </div>
+        <div class="add-button"> 
+            <a href="{% url 'plaintes:delete.plainte'  item.id %}" class="btn btn-danger btn-sm app"> <span class="oi oi-trash"></span> Supprimer </a>
+        </div>
+    </div>
+
+    <div class="row"></div>
+
+{% endblock %}
+
+{% block foot-javascript %} {% endblock %}
+
+
+
+
+
