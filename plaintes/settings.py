@@ -25,7 +25,7 @@ SECRET_KEY = '9zf=gd@@1p%t9@pl61pmkt%+(+=@76g%t8vt7vgeb65a6q1=lo'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.8.101', '18.188.180.107','127.0.0.1','finexs.app.ngrok.io','radd.serveo.net' ]
+ALLOWED_HOSTS = ['ec2-18-188-180-107.us-east-2.compute.amazonaws.com','192.168.8.101', '18.188.180.107','127.0.0.1','finexs.app.ngrok.io','radd.serveo.net' ]
 
 
 # Application definition
