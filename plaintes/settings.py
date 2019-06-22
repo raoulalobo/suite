@@ -91,6 +91,14 @@ WSGI_APPLICATION = 'plaintes.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'suite',
+        'USER': 'finexs',
+        'PASSWORD': '14septembre',
+        'HOST':'localhost',
+        'PORT':'5432'
+    },
+    'old': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
