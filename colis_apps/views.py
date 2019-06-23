@@ -7,7 +7,7 @@ from django.contrib import messages
 import datetime
 import requests
 from django.db.models import Sum
-from .tasks import order_created
+from .tasks import order_created 
 # Create your views here.
 
 @login_required
@@ -74,6 +74,7 @@ def add_coli(request):
         if coli_form.is_valid() and file_form.is_valid() :
             coli = coli_form.save()
             for f in files :
+                #ajouter un tache avec celery ici
                 file_instance = ColisFile(file=f, coli=coli )
                 file_instance.save()
 
