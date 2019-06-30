@@ -99,8 +99,15 @@
                                         </th> 
                                         <td>
                                             <a href="{% url 'colis_apps:detail.coli' coli.id %}"><ion-icon name="information-circle-outline"></ion-icon></a> 
-                                            <a href="{% url 'colis_apps:update.coli' coli.id %}"><ion-icon name="create"></ion-icon></a>
-                                            <a href="{% url 'colis_apps:delete' coli.id %}" ><ion-icon name="trash"></ion-icon></a>
+                                            
+                                            {% if perms.coli.change_coli %}
+                                                <a href="{% url 'colis_apps:update.coli' coli.id %}"><ion-icon name="create"></ion-icon></a>
+                                            {% endif %}
+
+                                            {% if perms.coli.delete_coli %}
+                                                <a href="{% url 'colis_apps:delete' coli.id %}" ><ion-icon name="trash"></ion-icon></a>
+                                            {% endif%}
+                                            
                                             {{coli.numero_colis}}
                                         </td>
                                         <td class='d-none d-lg-block'>{{coli.dateheure}}</td>

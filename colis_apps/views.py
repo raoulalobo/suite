@@ -50,6 +50,10 @@ def list_coli(request):
         sess_req = True
 
 
+    #request.session['pneu_filter'] = pneu_filter
+    
+
+
     return render(request,'coli/list.html',{ 'colis': pneu_filter ,  'montant' :  montant } )
 
 @login_required
@@ -98,12 +102,13 @@ def update_coli(request, coli_id ):
     file_form = ColiFileForm( request.POST or None , request.FILES  )
     files = request.FILES.getlist('file')
     if coli_form.is_valid() and file_form.is_valid() :
-        coli = coli_form.save()
+        colicommit = coli_form.save(commit=False)
+        coli = colicommit.save(update_fields=['etat_colis'])
         for f in files :
-                file_instance = ColisFile(file=f, coli=coli )
+                file_instance = ColisFile(file=f, coli=colicommit )
                 file_instance.save() 
         #SMS
-        order_created.delay(coli.id)
+        order_created.delay(colicommit.id)
             
         messages.success( request,'Item has been updated')
         return redirect('colis_apps:list.coli')
