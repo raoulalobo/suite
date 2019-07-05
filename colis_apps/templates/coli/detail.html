@@ -7,9 +7,6 @@
 {% block 'content' %}
 
     <h2>Details colis {{item.numero_colis}}</h2>
-    <p>Ce colis a ete modifie {{history|length}} fois , voir les details des modifications</p>
-
-
 
     <div class="row ">
         <div class="add-button"> <a href="{% url 'colis_apps:list.coli'  %}" class="btn btn-secondary btn-sm app"> <span class="oi oi-arrow-left"></span> Revenir a la liste des colis </a> </div>
@@ -27,21 +24,15 @@
             <u class="test">Montant :</u> {{item.montant}} </br>
             <u class="test">Libelle :</u> {{item.libelle}} </br>
             <u class="test">Status:</u> {{item.etat_colis}} </br>
-        </div>
-        
-        <div class="col-sm-12 col-md-6">
-
-            <div >
-                <u class="test">Observations :</u> </br>{{item.observation}} 
-            </div>
-
-            <div>
-                <u class="test">Images :</u> </br>
-                {% for f in files %}
-                    <!-- Modal recu-->
-                    <div class="modal fade" id={{f.id}} tabindex="-1" role="dialog" >
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
+            <u class="test">emplacement:</u> {{item.emplacement}} </br>
+            <u class="test">Observations :</u> </br>{{item.observation}} </br>
+            <u class="test">Images :</u> </br>
+            {% for f in files %}
+                <!-- Modal recu-->
+                <div class="modal fade" id={{f.id}} tabindex="-1" role="dialog" >
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        
                             <div class="modal-header">
                                 <h5 class="modal-title">colis #{{f.coli.numero_colis}}</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -54,30 +45,45 @@
                             </div>
 
                             <div class="modal-footer">
-                                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
-                            </div>
+
                         </div>
                     </div>
-                    <!-- fin Modal -->
-                    <u class="pointer" data-toggle="modal" data-target=#{{f.id}} >
-                        image {{ forloop.counter }} <!-- {{f.file.name}} -->
-                    </u> </br>
+                </div>
+                <!-- fin Modal -->
+                <u class="pointer" data-toggle="modal" data-target=#{{f.id}} >
+                    image {{ forloop.counter }} <!-- {{f.file.name}} -->
+                </u> </br></br></br>
 
-                {% endfor %} 
+            {% endfor %} 
+        </div>
+
+        <div class="col-sm-12 col-md-6">
+
+            <div>
+                <h5>Ce colis a ete modifie {{history|length}} fois :</h5>
             </div>
 
+            <div>
+                <ul class="list-group">
+                
+                {% for h in history %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ h.history_date }} | {{ h.history_user }} | {{ h.history_type }} | {{ h.etat_colis }} | {{ h.emplacement }}
+                    </li>
+                {% endfor %}
+
+                </ul>
+            </div>
+        
         </div>
 
     </div>
 
     <div class="row ">
-        {% if delete %}
-            <div class="add-button"> 
-                <a href="#" class="btn btn-danger btn-sm app"> <span class="oi oi-trash"></span> Supprimer </a>
-            </div>
-        {% endif %}
+      
     <!--
         <div class="add-button"> 
             <a href="#" class="btn btn-default btn-sm app"> <span class="oi oi-pencil"></span> Modifier </a> 
@@ -90,9 +96,6 @@
 
     <div class="row">
 
-        {% for h in history %}
-            {{ h.history_date }} , {{ h.history_user }} , {{ h.history_type }} , {{ h.etat_colis }} </br>
-        {% endfor %}
     
     </div>
 

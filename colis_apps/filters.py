@@ -14,7 +14,7 @@ class ColiFilter(django_filters.FilterSet):
 
     class Meta :
         model = Coli
-        fields = ['numero_colis', 'telephone_exp' , 'immatriculation']
+        fields = ['numero_colis', 'telephone_exp' , 'immatriculation','etat_colis']
         filter_overrides = {
             models.DateTimeField : {
                 'filter_class': django_filters.DateTimeFilter,

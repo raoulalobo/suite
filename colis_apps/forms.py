@@ -12,7 +12,7 @@ class ColiForm(forms.ModelForm):
 
     class Meta:
         model = Coli
-        fields = ('numero_colis', 'telephone_exp','telephone_dest','immatriculation','destination','montant' , 'libelle' , 'etat_colis', 'observation' )
+        fields = ('numero_colis', 'telephone_exp','telephone_dest','immatriculation','destination','montant' , 'libelle' , 'etat_colis', 'emplacement', 'observation' )
         widgets = {
             #'numero_colis': Textarea(attrs={'cols': 80, 'rows': 20, 'readonly': True}),
             #'dateheure': DateTimePickerInput(), # default date-format %m/%d/%Y will be used

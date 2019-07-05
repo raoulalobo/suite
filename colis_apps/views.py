@@ -2,12 +2,13 @@ from django.contrib.auth.decorators import permission_required , login_required
 from django.shortcuts import render , redirect
 from .forms import ColiForm , ColiFileForm
 from .models import Coli, ColisFile
+from account.models import Profile
 from .filters import ColiFilter
 from django.contrib import messages
 import datetime
 import requests
 from django.db.models import Sum
-from .tasks import order_created 
+from .tasks import order_created , rapport_created
 # Create your views here.
 
 @login_required
@@ -51,8 +52,6 @@ def list_coli(request):
 
 
     #request.session['pneu_filter'] = pneu_filter
-    
-
 
     return render(request,'coli/list.html',{ 'colis': pneu_filter ,  'montant' :  montant } )
 
@@ -103,7 +102,7 @@ def update_coli(request, coli_id ):
     files = request.FILES.getlist('file')
     if coli_form.is_valid() and file_form.is_valid() :
         colicommit = coli_form.save(commit=False)
-        coli = colicommit.save(update_fields=['etat_colis'])
+        coli = colicommit.save(update_fields=['etat_colis', 'emplacement'])
         for f in files :
                 file_instance = ColisFile(file=f, coli=colicommit )
                 file_instance.save() 
@@ -148,3 +147,56 @@ def delete_file(request, file_id , coli_id ):
     item.delete()
     messages.success( request,'File has been deleted')
     return redirect('colis_apps:update.coli' , coli_id )
+
+
+
+@login_required
+def rapport_coli(request):
+
+    pneuss = Coli.objects.all()
+    pneus = Coli.objects.all().filter( dateheure__gte=datetime.date.today() ) 
+
+    req_pneu = request.GET
+    req_pneu_list_key = list(req_pneu.keys())
+    req_pneu_list_value = list(req_pneu.values())
+    req_pneu_list_len = len(req_pneu_list_key)
+
+    
+    if req_pneu_list_key :
+    # Si les keys values existent ca veut dire q on clique sur la recherche    
+
+        if not (  bool( req_pneu_list_value[2] ) and bool( req_pneu_list_value[3] ) ):
+        # Si les champs dates sont vides filtrer les donnees sur la date du jour
+            pneu_filter = ColiFilter( request.GET , queryset= pneus )
+        else:  
+            pneu_filter = ColiFilter( request.GET , queryset= pneuss )
+            
+        request.session['req_coli'] = request.GET
+
+        
+    if not req_pneu_list_key and (  'req_coli' not in request.session ):
+    # Si les keys values existent pas te q il ya pas de session req_pneu filter sur la date du jour
+    # cas utilisation : retour vers la liste principale suite a un ajout, modification ou sppression apres recherche
+        pneu_filter = ColiFilter( request.GET , queryset= pneus )
+    else :
+    # Cas utilisation : Retour vers la liste principale suite a un ajout , modification ou suppression apres recherche    
+        pneu_filter = ColiFilter( request.session['req_coli'] , queryset= pneuss )
+
+    total_count = pneu_filter.qs.count()
+    total_montant = pneu_filter.qs.aggregate(Sum('montant'))['montant__sum'] or 0.00
+
+    yde_count = (pneu_filter.qs).filter(destination='DLA').count()
+    yde_montant =  (pneu_filter.qs).filter(destination='DLA').aggregate(Sum('montant'))['montant__sum'] or 0.00
+    
+    dla_count = (pneu_filter.qs).filter(destination='YDE').count()
+    dla_montant =  (pneu_filter.qs).filter(destination='YDE').aggregate(Sum('montant'))['montant__sum'] or 0.00
+
+    rapport_created.delay( request.user.id , total_count, total_montant, yde_count, yde_montant, dla_count, dla_montant )
+
+    if 'req_coli' not in request.session :
+        sess_req = False
+    else :
+        sess_req = True
+    
+
+    return redirect('colis_apps:list.coli')

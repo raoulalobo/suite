@@ -3,6 +3,7 @@ from django.db import models
 from cars_app.models import Car 
 from django.utils import timezone
 from simple_history.models import HistoricalRecords
+from django.core.validators import MaxValueValidator
 
 
 
@@ -37,6 +38,8 @@ class Coli(models.Model):
     libelle = models.CharField( max_length=100, default='N.A')
     immatriculation = models.ForeignKey( Car, related_name='car', on_delete=models.CASCADE)
     etat_colis = models.CharField( max_length=10, choices=ETAT_CHOICES, default=ENVOYE, )
+    emplacement = models.PositiveIntegerField(default=0 , validators=[MaxValueValidator(50),])
+    #zone = models.TextField(default='RAS')
     observation = models.TextField()
     history = HistoricalRecords()
 
