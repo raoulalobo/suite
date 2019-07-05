@@ -1,7 +1,7 @@
 from celery import task
 from django.core.mail import send_mail
 from .models import Coli, ColisFile
-from account.models import Profile
+from .models import Profile
 import requests
 
 

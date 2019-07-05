@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
-from .models import Profile
+from colis_apps.models import Profile
 from .forms import UserEditForm, ProfileEditForm, UserRegistrationForm
 from django.contrib import messages
 

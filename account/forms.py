@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile
+from colis_apps.models import Profile
 
 
 class UserEditForm(forms.ModelForm):
@@ -11,7 +11,7 @@ class UserEditForm(forms.ModelForm):
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('date_of_birth', 'photo')
+        fields = ('date_of_birth','phone')
 
 
 class UserRegistrationForm(forms.ModelForm):

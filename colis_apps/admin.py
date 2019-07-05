@@ -1,8 +1,12 @@
 from django.contrib import admin
-from .models import Coli
+from .models import Coli, Profile
 
 # Register your models here.
 
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ['user', 'phone', 'date_of_birth']
+    list_filter = ['phone', 'date_of_birth']
 
 
 @admin.register(Coli)

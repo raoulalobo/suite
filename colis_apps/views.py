@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import permission_required , login_required
 from django.shortcuts import render , redirect
 from .forms import ColiForm , ColiFileForm
 from .models import Coli, ColisFile
-from account.models import Profile
+from .models import Profile
 from .filters import ColiFilter
 from django.contrib import messages
 import datetime
