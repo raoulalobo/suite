@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('plaintes/', include('plaintes_app.urls', namespace='plaintes')),
     path('pneus/', include('pneus_app.urls', namespace='pneus')),
-    path('colis/', include('colis_apps.urls', namespace='colis')),
+    path('', include('colis_apps.urls', namespace='colis')),
     path('account/', include('account.urls', namespace='account')),
 ]
 

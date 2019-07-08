@@ -41,6 +41,14 @@ def save_user_profile(sender, instance, **kwargs):
 
 # Create your models here.
 
+class ColiManager(models.Manager):
+    def yde(self):
+        return self.filter(destination='YDE')
+
+    def dla(self, size):
+        return self.filter(destination='DLA')
+        
+
 class Coli(models.Model):
 
     YAOUNDE = 'YDE'
@@ -75,8 +83,12 @@ class Coli(models.Model):
     observation = models.TextField()
     history = HistoricalRecords()
 
+    objects = ColiManager()
+
     def __str__(self):
         return 'colis du {} , de {} a {}'.format(self.dateheure, self.telephone_exp, self.telephone_dest)
+
+
 
 
 class ColisFile(models.Model):

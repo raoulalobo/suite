@@ -7,7 +7,7 @@ urlpatterns = [
 
     # URL
     path('accces-denied/', views.denied, name='denied'),
-    path('list/', views.list_coli, name='list.coli'),
+    path('', views.list_coli, name='list.coli'),
     path('rapport/', views.rapport_coli, name='rapport.coli'),
     path('add/', views.add_coli, name='add.coli'),
     path('update/<coli_id>', views.update_coli, name='update.coli'),
