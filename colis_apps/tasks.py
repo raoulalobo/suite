@@ -23,7 +23,7 @@ def rapport_created(req, total_count , total_montant, yde_count , yde_montant, d
     
     usr = Profile.objects.get( user= req)
 
-    message = 'Total: {} colis,{} FCFA\n Yde: {} colis,{} FCFA\n '.format( total_count, total_montant, yde_count, yde_montant )
+    message = 'Total: {} colis,{} FCFA\n Yde: {} colis,{} FCFA\n Dla: {} colis,{} FCFA '.format( total_count, total_montant, yde_count, yde_montant, dla_count , dla_montant)
     payload = {'action': 'sendmessage', 'username': 'FINEXS', 'password': 'Finexs12345', 'recipient': '237{}'.format(usr.phone) , 'messagetype':'SMS:TEXT', 'messagedata':message}
     r = requests.get("http://api.vassarl.com:9501/api", params=payload)
 

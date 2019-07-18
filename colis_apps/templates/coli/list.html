@@ -108,11 +108,11 @@
                                         <td>
                                             <a href="{% url 'colis_apps:detail.coli' coli.id %}"><ion-icon name="information-circle-outline"></ion-icon></a> 
                                             
-                                            {% if perms.coli.change_coli %}
+                                            {% if perms.colis_apps.change_coli %}
                                                 <a href="{% url 'colis_apps:update.coli' coli.id %}"><ion-icon name="create"></ion-icon></a>
                                             {% endif %}
 
-                                            {% if perms.coli.delete_coli %}
+                                            {% if perms.colis_apps.delete_coli %}
                                                 <a href="{% url 'colis_apps:delete' coli.id %}" ><ion-icon name="trash"></ion-icon></a>
                                             {% endif%}
                                             

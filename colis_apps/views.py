@@ -68,7 +68,7 @@ def list_colis(request):
     return render(request,'coli/list.html',{ 'colis': colis })
 
 
-@permission_required('colis_apps.can_add', login_url='/colis/accces-denied')
+@permission_required('colis_apps.add_coli', login_url='colis_apps:denied')
 def add_coli(request):
     if request.method == 'POST':
         coli_form = ColiForm(request.POST )
@@ -93,7 +93,7 @@ def add_coli(request):
 
     return render(request,'coli/add.html',{'coli_form': coli_form , 'file_form' : file_form })
 
-@permission_required('colis_apps.can_change', login_url='/colis/accces-denied')
+@permission_required('colis_apps.change_coli', login_url='colis_apps:denied')
 def update_coli(request, coli_id ):
     item = Coli.objects.get( pk = coli_id )
     joint = ColisFile.objects.filter( coli = coli_id )
@@ -126,7 +126,7 @@ def detail_coli( request, coli_id ):
 
     return render(request,'coli/detail.html',{'item': item , 'files': files  , 'history': history })
 
-@permission_required('colis_apps.can_delete', login_url='/colis/accces-denied')
+@permission_required('colis_apps.delete_coli', login_url='colis_apps:denied')
 def delete( request, coli_id ):
     
     item = Coli.objects.get( pk = coli_id )
@@ -134,14 +134,14 @@ def delete( request, coli_id ):
 
     return render(request,'coli/delete.html',{'item': item , 'files': files })
 
-@permission_required('colis_apps.can_delete', login_url='/colis/accces-denied')
+@permission_required('colis_apps.delete_coli', login_url='colis_apps:denied')
 def delete_coli(request, coli_id ):
     item = Coli.objects.get( pk = coli_id )
     item.delete()
     messages.success( request,('Item has been deleted') )
     return redirect('colis_apps:list.coli')
 
-@permission_required('colis_apps.can_delete', login_url='/colis/accces-denied')
+@permission_required('colis_apps.delete_coli', login_url='colis_apps:denied')
 def delete_file(request, file_id , coli_id ):
     item = ColisFile.objects.get( pk = file_id )
     item.delete()
