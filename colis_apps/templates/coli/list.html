@@ -111,7 +111,7 @@
                                 {% for coli in colis.qs %} {# Lire les plaintes trouvees  #}
                                     <tr>
                                         <th scope="row">
-                                            {{ forloop.counter }} {# Comptage auto. #} 
+                                            {{ forloop.revcounter }} {# Comptage auto. #} 
                                         </th> 
                                         <td>
                                             <a href="{% url 'colis_apps:detail.coli' coli.id %}"><ion-icon name="information-circle-outline"></ion-icon></a> 
