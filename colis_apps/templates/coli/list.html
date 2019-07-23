@@ -34,12 +34,16 @@
 
                         <div class="row" >
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 {{ colis.form.numero_colis|as_crispy_field }}
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 {{ colis.form.telephone_exp|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-4">
+                                {{ colis.form.telephone_dest|as_crispy_field }}
                             </div>
                         
                         </div>
@@ -47,12 +51,16 @@
 
                         <div class="row" >
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 {{ colis.form.immatriculation|as_crispy_field }}
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 {{ colis.form.etat_colis|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-4">
+                                {{ colis.form.destination|as_crispy_field }}
                             </div>
 
                         

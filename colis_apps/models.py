@@ -70,7 +70,7 @@ class Coli(models.Model):
     id = models.UUIDField( primary_key=True, default=uuid.uuid4, editable=False)
     #addtime = l'heure d'ajout enregistre par la machine
     dateheure = models.DateTimeField( auto_now=True )
-    numero_colis = models.CharField( max_length=100, default='N.A' )
+    numero_colis = models.CharField( max_length=100, default='N.A' , unique=True )
     telephone_exp = models.CharField( max_length=100, default='N.A' )
     telephone_dest = models.CharField( max_length=100, default='N.A' )
     destination = models.CharField( max_length=16, choices=DESTINATION_CHOICES, default=NA, )

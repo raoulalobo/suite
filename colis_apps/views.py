@@ -100,9 +100,15 @@ def update_coli(request, coli_id ):
     coli_form = ColiForm(request.POST or None, instance=item )
     file_form = ColiFileForm( request.POST or None , request.FILES  )
     files = request.FILES.getlist('file')
+
     if coli_form.is_valid() and file_form.is_valid() :
         colicommit = coli_form.save(commit=False)
-        coli = colicommit.save(update_fields=['etat_colis', 'emplacement'])
+
+        if request.user.has_perm('colis_apps.delete_coli'):
+            coli = colicommit.save()
+        else:
+            coli = colicommit.save(update_fields=['etat_colis', 'emplacement'])
+
         for f in files :
                 file_instance = ColisFile(file=f, coli=colicommit )
                 file_instance.save() 
