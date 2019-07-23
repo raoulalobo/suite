@@ -88,7 +88,8 @@ class Coli(models.Model):
     def __str__(self):
         return 'colis du {} , de {} a {}'.format(self.dateheure, self.telephone_exp, self.telephone_dest)
 
-
+    class Meta:
+        ordering = ["numero_colis"]
 
 
 class ColisFile(models.Model):
