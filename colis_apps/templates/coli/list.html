@@ -22,12 +22,20 @@
                             
                         <div class="row" >
 
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 {{ colis.form.date_lte|as_crispy_field }}
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-3">
+                                {{ colis.form.time_lte|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-3">
                                 {{ colis.form.date_gte|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-3">
+                                {{ colis.form.time_gte|as_crispy_field }}
                             </div>
                         
                         </div>

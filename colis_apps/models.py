@@ -62,8 +62,10 @@ class Coli(models.Model):
     ENVOYE = 'envoye'
     RECU = 'recu'
     RETIRE = 'retire'
+    VOYAGEUR = 'voyageur'
     ETAT_CHOICES = (
         (ENVOYE, 'envoye'),
+        (VOYAGEUR, 'voyageur'),
         (RECU, 'recu'),
         (RETIRE, 'retire'),
     )
@@ -89,7 +91,7 @@ class Coli(models.Model):
         return 'colis du {} , de {} a {}'.format(self.dateheure, self.telephone_exp, self.telephone_dest)
 
     class Meta:
-        ordering = ['-dateheure']
+        ordering = ['-dateheure','numero_colis']
 
 
 class ColisFile(models.Model):
