@@ -8,9 +8,11 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
+
 """
 
 import os
+from celery.schedules import crontab
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,10 +33,13 @@ ALLOWED_HOSTS = ['ec2-3-13-36-233.us-east-2.compute.amazonaws.com','3.13.36.233'
 # Application definition
 
 INSTALLED_APPS = [
-    #'grappelli',
+    #'suit',
     'account',
-    'bootstrap_datepicker_plus',
+    'grappelli',
     'bootstrap4',
+    'bootstrap_datepicker_plus',
+    'bootstrap_datepicker',
+    'tempus_dominus',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,12 +48,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'simple_history',
     'plaintes_app',
+    'chauffeur_app',
+    'mtickets_apps',
     'pneus_app',
     'django_filters',
     'cars_app',
     'colis_apps',
+    'archivages_app',
     'import_export',
     'crispy_forms',
+    'storages',
+    'gunicorn',
     
 ]
 
@@ -152,23 +162,44 @@ USE_TZ = True
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # envoie emails 
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'send.one.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'finexs-informatique@finexsvoyages.net'
-EMAIL_HOST_PASSWORD = '14septembre'
+EMAIL_HOST_PASSWORD = '(Qw3rty.)'
 EMAIL_USE_TLS = True
 #Cette ligne de code est essentielle pour reset le password
 DEFAULT_FROM_EMAIL = 'finexs-informatique@finexsvoyages.net'
 
+
+
+AWS_ACCESS_KEY_ID = 'AKIAQWRU5E5OMTCFDUUH'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'scanfinexs'
+#AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
+
 STATIC_URL = '/statics/'
+#The STATICFILES_DIRS setting should not contain the STATIC_ROOT setting.
+#La ligne ci dessus me pousse a commenter la ligne ci dessous (pris dans l'appli streaming)
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'statics'), ]
+# J'ai eu un soucis , j'ai commente la ligne en dessous mais c'est elle qui est ok .
+#STATIC_ROOT = os.path.join(BASE_DIR, 'statics/') 
 
 # Dossier des medias (images , videos )
+
+#Decommmente pour stockage local ? Je ne crois pas .
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+#stockage aws s3
+DEFAULT_FILE_STORAGE = 'plaintes.storage_backends.MediaStorage'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -176,10 +207,18 @@ BOOTSTRAP4 = {
     'include_jquery': True,
 }
 
-# accounts
+# Accounts
 LOGIN_REDIRECT_URL = 'colis_apps:list.coli'
 LOGIN_URL = 'account:login'
 LOGOUT_URL = 'account:logout'
 
 # Celery
 CELERY_BROKER_URL = 'amqp://localhost'
+
+# Other Celery settings
+CELERY_BEAT_SCHEDULE = {
+    'task-number-one': {
+        'task': 'archivages_app.tasks.alert',
+        'schedule': crontab(minute=0, hour='6')
+    }
+}

@@ -12,8 +12,13 @@ def order_created(order_id):
 
     coli = Coli.objects.get(id=order_id)
     if  coli.etat_colis == 'envoye' :
-        message = 'Cher client proprietaire du #{}, votre colis {} est en route pour {}. Infos Yde:699755276 - infos Dla:656968928 -Plaintes:697509899; Ouvert du lun. au dim. 24h/24'.format( coli.telephone_dest , coli.numero_colis, coli.destination )
-        payload = {'action': 'sendmessage', 'username': 'FINEXS', 'password': 'Finexs12345', 'recipient': '237{}'.format(coli.telephone_dest) , 'messagetype':'SMS:TEXT', 'messagedata':message}
+        message = 'Cher client proprietaire du #{}, votre colis {} est en route pour {}. Montant paye : {} .Yde:699755276 ,Dla:656968928 -Plaintes:697509899 ( SMS )'.format( coli.telephone_exp , coli.numero_colis, coli.destination, coli.montant )
+        payload = {'action': 'sendmessage', 'username': 'FINEXS', 'password': 'Finexs12345', 'recipient': '237{}'.format(coli.telephone_exp) , 'messagetype':'SMS:TEXT', 'messagedata':message}
+        r = requests.get("http://api.vassarl.com:9501/api", params=payload)
+
+    if coli.etat_colis == 'nontrouve' :
+        message = 'ALERTE: Le colis #{} est introuvable a {}. Montant paye : {} , Valeur declaree : {} .'.format( coli.numero_colis, coli.destination, coli.montant , coli.valeur_declaree)
+        payload = {'action': 'sendmessage', 'username': 'FINEXS', 'password': 'Finexs12345', 'recipient': '237697509899,237656806999,696669942' , 'messagetype':'SMS:TEXT', 'messagedata':message}
         r = requests.get("http://api.vassarl.com:9501/api", params=payload)
 
     return r

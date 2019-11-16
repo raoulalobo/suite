@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block extrahead %} {% endblock %}
+
+{% block title %}{% endblock %}
+
+{% block 'content' %}
+
+    <h2>Details mticket : {{item.ticket}}</h2>
+
+
+
+    <div class="row ">
+        <div class="add-button"> <a href="{% url 'mtickets_apps:list.mtickets'  %}" class="btn btn-secondary btn-sm app"> <span class="oi oi-arrow-left"></span> Revenir a la liste des mtickets </a> </div>
+    </div>
+
+    <div class="row add-button">
+        
+        <div class="col-sm-12 col-md-6">
+            <u class="test">MTicket:</u> {{item.ticket}} </br>
+            <u class="test">CNI:</u> {{item.cni}} </br>
+            <u class="test">Nom:</u> {{item.name}} </br>
+            <u class="test">Partenaire:</u> {{item.partner}} </br>
+        </div>
+        
+        <div class="col-sm-12 col-md-6">
+
+            <div >
+                <u class="test">Observations :</u> </br>{{item.observation}} 
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row ">
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Attention!</h4>
+            <p>Vous etes sur le point de supprimer cette donnee, elle ne sera plus presente en base de donnees et vous ne pourrez plus jamais la consulter ...</p>
+            <hr>
+            <p class="mb-0">Si vous n'etes pas sur contacter service colis</p>  
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="add-button"> 
+            <a href="{% url 'mtickets_apps:deleted.mticket' item.id %}" class="btn btn-danger btn-sm app"> <span class="oi oi-trash"></span>Confirmer la suppression </a>
+        </div>
+    </div>
+
+    <div class="row"></div>
+
+{% endblock %}
+
+{% block foot-javascript %} {% endblock %}
+
+
+
+
+

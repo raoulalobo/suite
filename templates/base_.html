@@ -1,0 +1,320 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block 'title' %}<title>FINEXS VOYAGES LTD</title>{% endblock %}
+    <!-- Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="keywords" content="FINEXS Application Management" />
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+
+
+    <!-- Tempus Dominus -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+    
+
+    <!-- //Meta Tags -->
+
+    {% load static %}
+
+    <!-- Style-sheets -->
+
+    <!-- Custom Css -->
+    <link href="{% static 'styles/site.css' %}" rel='stylesheet'>
+ 
+    <!-- Bootstrap Css -->
+    <link href="{% static 'styles/css_admin/bootstrap.css' %}" rel='stylesheet' type="text/css" media="all">
+
+    <!-- Calender Css -->
+    <link  href="{% static 'styles/css_admin/pignose.calender.css' %}" rel="stylesheet" type="text/css"/>
+    
+
+    <!-- Common Css -->
+    <link href="{% static 'styles/css_admin/npq/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+
+
+    <!-- Nav Css -->
+    <link  href="{% static 'styles/css_admin/style4.css' %}" rel="stylesheet">
+
+
+    <!-- Widgets Css -->
+    <link  href="{% static 'styles/css_admin/widgets.css' %}" rel="stylesheet">
+
+
+    <!-- Fontawesome Css -->
+    <link href="{% static 'styles/css_admin/npq/fontawesome-all.css' %}" rel="stylesheet">
+    
+
+    <!-- Fontawesome latest ( 5.10.2 ) Css -->
+    <link href="{% static 'fontawesome/css/all.css' %}" rel="stylesheet">
+
+    <!--// Style-sheets -->
+
+    <!--web-fonts
+    <link href="//fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    fonts-->
+
+    
+    
+    
+</head>
+
+<body>
+    <div class="se-pre-con"></div>
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h1>
+                    <a href="index.html">FinexsApps</a>
+                </h1>
+                <span>FA</span>
+            </div>
+            <div class="profile-bg"></div>
+            <ul class="list-unstyled components">
+                <li class="{{facture_pages}}">
+                    <a href="{% url 'colis_apps:list.coli' %}"><i class="fas fa-box-open"></i> Colis</a>
+                </li>
+                <li class="{{bordereau_pages}}">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">
+                        <i class="far fa-copy"></i>
+                        Scans
+                        <i class="fas fa-angle-down fa-pull-right"></i>
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="{% url 'archivages_app:list.facture' %}">Factures</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'archivages_app:list.bordereau' %}">Bordereau</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'archivages_app:list.bleue' %}">C.Bleue</a>
+                        </li>   
+                                             
+                        <li>
+                            <a href="{% url 'archivages_app:list.assurance' %}">Assurance</a>
+                        </li>
+                         
+                        <li>
+                            <a href="{% url 'archivages_app:list.plainte' %}">Plaintes</a>
+                        </li>
+                        <!--
+                        <li>
+                            <a href="#">Services</a>
+                        </li>
+                        -->
+                    </ul>
+                </li>
+                
+                <li class="{{ticket_pages}}">
+                    <a href="{% url 'mtickets_apps:list.mtickets' %}">
+                        <i class="fas fa-money-check-alt"></i>
+                        m-tickets
+                    </a>
+                </li>
+                <!-- A utiliser un jour 
+                <li>
+                    <a href="#">
+                        <i class="far fa-envelope"></i>
+                        Alertes
+                        <span class="badge badge-secondary float-md-right bg-danger">5</span>
+                    </a>
+                </li>
+                -->
+              
+            
+                
+            </ul>
+        </nav>
+
+        <!-- Page Content Holder -->
+        <div id="content">
+
+            <!-- top-bar -->
+            <nav class="navbar navbar-default mb-xl-5 mb-4">
+                <div class="container-fluid">
+
+                    <div class="navbar-header">
+                        <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+
+                    <ul class="top-icons-agileits-w3layouts float-right">
+                        <!--
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <i class="far fa-bell"></i>
+                                <span class="badge">4</span>
+                            </a>
+                            <div class="dropdown-menu top-grid-scroll drop-1">
+
+                                <h3 class="sub-title-w3-agileits">User notifications</h3>
+                                
+                                <a href="#" class="dropdown-item mt-3">
+                                    <div class="notif-img-agileinfo">
+                                        <img src="images/clone.jpg" class="img-fluid" alt="Responsive image">
+                                    </div>
+                                    <div class="notif-content-wthree">
+                                        <p class="paragraph-agileits-w3layouts py-2">
+                                            <span class="text-diff">John Doe</span> Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
+                                        <h6>4 mins ago</h6>
+                                    </div>
+                                </a> 
+                               
+                                <a href="#" class="dropdown-item mt-3">
+                                    <div class="notif-img-agileinfo">
+                                        <img src="images/clone.jpg" class="img-fluid" alt="Responsive image">
+                                    </div>
+                                    <div class="notif-content-wthree">
+                                        <p class="paragraph-agileits-w3layouts py-2">
+                                            <span class="text-diff">Jack</span> Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
+                                        <h6>1 days ago</h6>
+                                    </div>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">view all notifications</a>
+                            </div>
+                        </li>
+                        -->
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <i class="far fa-user"></i>
+                            </a>
+                            <div class="dropdown-menu drop-3">
+                                <div class="profile d-flex mr-o">
+                                    
+                                    <div class="profile-r align-self-center">
+                                        <h3 class="sub-title-w3-agileits">{{ user.username }}</h3>
+                                        <!-- <a href="mailto:info@example.com">info@example.com</a> -->
+                                    </div>
+                                </div>
+                                <!-- 
+                                <a href="#" class="dropdown-item mt-3">
+                                    <h4>
+                                        <i class="far fa-question-circle mr-3"></i>Faq</h4>
+                                </a>
+                                <a href="#" class="dropdown-item mt-3">
+                                    <h4>
+                                        <i class="far fa-thumbs-up mr-3"></i>Support</h4>
+                                </a>
+                                -->
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url "account:logout" %}">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!--// top-bar -->
+            {% if messages %}
+
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+            {% endfor %}
+
+            {% endif %}
+
+            {% block 'content' %} {% endblock %}
+            
+            <!-- Copyright -->
+            <div class="copyright-w3layouts py-xl-3 py-2 mt-xl-5 mt-4 text-center">
+                <p>© 2018 Modernize . All Rights Reserved | Design by
+                    <a href="http://w3layouts.com/"> W3layouts </a>
+                </p>
+            </div>
+            <!--// Copyright -->
+        </div>
+
+    </div>
+
+    <!-- Required common Js -->
+    <script src="{% static 'js/js_admin/jquery-2.2.3.min.js' %}"></script>
+    <!-- //Required common Js -->
+    
+    <!-- loading-gif Js -->
+    <script src="{% static 'js/js_admin/modernizr.js' %}"></script>
+    <script>
+        //paste this code under head tag or in a seperate js file.
+        // Wait for window load
+        $(window).load(function () {
+            // Animate loader off screen
+            $(".se-pre-con").fadeOut("slow");;
+        });
+    </script>
+    <!--// loading-gif Js -->
+
+    <!-- Sidebar-nav Js -->
+    <script>
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+    <!--// Sidebar-nav Js -->
+
+    <!-- profile-widget-dropdown js-->
+    <script src="{% static 'js/js_admin/script.js' %}"></script>
+    <!--// profile-widget-dropdown js-->
+  
+
+    <!-- dropdown nav -->
+    <script>
+        $(document).ready(function () {
+            $(".dropdown").hover(
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                    $(this).toggleClass('open');
+                },
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                    $(this).toggleClass('open');
+                }
+            );
+        });
+    </script>
+    <!-- //dropdown nav -->
+
+    <!-- Js for bootstrap working-->
+    <script src="{% static 'js/js_admin/bootstrap.min.js' %}"></script>
+    <!-- //Js for bootstrap working -->
+
+    <!-- datepicker-widget -->
+    <script src="{% static 'js/datepicker-widget.js' %}"></script>
+
+   
+    
+    {% block foot-javascript %} {% endblock %}
+
+</body>
+
+</html>

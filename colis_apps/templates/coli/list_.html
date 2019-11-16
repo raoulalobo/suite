@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load group_filter %}
+{% block extrahead %} {{ colis.form.media }} {% endblock %}
+
+
+{% block title %}{% endblock %}
+
+{% block 'content' %}
+    
+    <div class="row">
+        <h4> {{colis.qs|length}}resultat(s) trouve(s),{{montant}}FCFA en caisse </h4>
+    </div>
+    
+    <div class="row">
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form method="get">
+                    
+                        {% csrf_token %}
+                            
+                        <div class="row" >
+
+                            <div class="col-md-3">
+                                {{ colis.form.date_lte|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-3">
+                                {{ colis.form.time_lte|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-3">
+                                {{ colis.form.date_gte|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-3">
+                                {{ colis.form.time_gte|as_crispy_field }}
+                            </div>
+                        
+                        </div>
+
+                        <div class="row" >
+
+                            <div class="col-md-4">
+                                {{ colis.form.numero_colis|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-4">
+                                {{ colis.form.telephone_exp|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-4">
+                                {{ colis.form.telephone_dest|as_crispy_field }}
+                            </div>
+                        
+                        </div>
+
+
+                        <div class="row" >
+
+                            <div class="col-md-4">
+                                {{ colis.form.immatriculation|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-4">
+                                {{ colis.form.etat_colis|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-4">
+                                {{ colis.form.destination|as_crispy_field }}
+                            </div>
+
+                        
+                        </div>
+
+                        <button type="submit">Lancer la recherche</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="add-button"> <a href="{% url 'colis_apps:add.coli'  %}" class="btn btn-primary btn-sm"> <span class="oi oi-plus"></span> Ajouter </a> </div>
+        {% if request.user|has_group:"manager" %}
+            <div class="add-button"> <a href="{% url 'colis_apps:rapport.coli'  %}" class="btn btn-success btn-sm"> <span class="oi"></span> Rapport </a> </div>
+        {% endif %}
+    </div>
+
+    
+    
+    
+
+        <div class="row">
+
+            <div class="col-12">
+                {% if colis.qs %} {# Si il existe des plaintes afficher le tableau sinon ne rien afficher #}
+
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                <th>#</th>
+                                <th>Identifiant_colis</th>
+                                <th>Date_Expedition</th>
+                                <th>Status</th>
+                                <th>Tel. Exp.</th>
+                                <th>Tel. Dest.</th>
+                                <th>Libelle</th>
+                                <th>immatriculation.</th>
+                                
+                                </tr>
+                            </thead>
+                                
+                            <tbody>
+                                
+                                {% for coli in colis.qs %} {# Lire les plaintes trouvees  #}
+                                    <tr>
+                                        <th scope="row">
+                                            {{ forloop.revcounter }} {# Comptage auto. #} 
+                                        </th> 
+                                        <td>
+                                            <a href="{% url 'colis_apps:detail.coli' coli.id %}"><ion-icon name="information-circle-outline"></ion-icon></a> 
+                                            
+                                            {% if perms.colis_apps.change_coli %}
+                                                <a href="{% url 'colis_apps:update.coli' coli.id %}"><ion-icon name="create"></ion-icon></a>
+                                            {% endif %}
+
+                                            {% if perms.colis_apps.delete_coli %}
+                                                <a href="{% url 'colis_apps:delete' coli.id %}" ><ion-icon name="trash"></ion-icon></a>
+                                            {% endif%}
+                                            
+                                            {{coli.numero_colis}}
+                                        </td>
+                                        <td>{{coli.dateheure}}</td>
+                                        <td>{{coli.etat_colis}}</td>
+                                        <td>{{coli.telephone_exp}}</td>
+                                        <td>{{coli.telephone_dest}}</td>
+                                        <td>{{coli.libelle}}</td>
+                                        <td>{{coli.immatriculation}}</td>
+                                        
+                                    </tr>
+                                
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    
+                    </div>
+                {% endif %}
+            </div>
+    
+        </div>
+
+
+{% endblock %}
+
+{% block foot-javascript %} {% endblock %}
+

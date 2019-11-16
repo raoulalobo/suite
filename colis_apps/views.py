@@ -100,6 +100,7 @@ def update_coli(request, coli_id ):
     coli_form = ColiForm(request.POST or None, instance=item )
     file_form = ColiFileForm( request.POST or None , request.FILES  )
     files = request.FILES.getlist('file')
+    history = Coli.history.filter( id = coli_id )
 
     if coli_form.is_valid() and file_form.is_valid() :
         colicommit = coli_form.save(commit=False)
@@ -121,7 +122,7 @@ def update_coli(request, coli_id ):
         coli_form = ColiForm( None,  instance=item )
         file_form = ColiFileForm()
 
-    return render(request, 'coli/add.html', { 'coli_form': coli_form , 'file_form' : file_form , 'joint': joint })
+    return render(request, 'coli/add.html', { 'coli_form': coli_form , 'file_form' : file_form , 'joint': joint , 'history': history, 'item': item, 'update': True })
 
 @login_required
 def detail_coli( request, coli_id ):

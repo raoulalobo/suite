@@ -12,8 +12,7 @@
     
 
     {% load static %}
-    <link href="{% static 'icofont/icofont.css' %}" rel='stylesheet'>
-    <link href="{% static 'styles/ionicons/ionicons.min.css' %}" rel='stylesheet'>
+    
     <link href="{% static 'styles/site.css' %}" rel='stylesheet'>
     <link href="{% static 'styles/useiconic/css/open-iconic-bootstrap.css' %}" rel='stylesheet'>
     <script src="{% static 'js/app.js' %}"></script>
@@ -23,6 +22,7 @@
 
     {# Load CSS and JavaScript #}
     {% bootstrap_css %}
+    {# Cet encule controle le DateTimePicker #}
     {% bootstrap_javascript jquery='full' %}
 
     {# Display django.contrib.messages as Bootstrap alerts #}
@@ -37,7 +37,7 @@
 
 <body>
     
-<!-- NavBar -->
+<!-- NavBar 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 
   {% include '_logopartial.html' %}
@@ -60,7 +60,7 @@
 
   </div>
 </nav>
-    
+-->
     <div class="container">
         <div class="starter-template">
             {% if messages %}

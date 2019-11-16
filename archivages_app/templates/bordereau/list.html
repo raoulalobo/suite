@@ -1,0 +1,114 @@
+{% extends "base_.html" %}
+{% load crispy_forms_tags %}
+{% load group_filter %}
+
+{% block extrahead %} {{ items.form.media }}  {% endblock %}
+
+
+{% block title %}{% endblock %}
+
+{% block 'content' %}
+    
+    <div class="row">
+        req_item_list_value : {{req_item_list_value}}</br>
+        req_item_list_key : {{req_item_list_key}}
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form method="get">
+                    
+                        {% csrf_token %}
+                            
+                        <div class="row" >
+
+                            <div class="col-md-6">
+                                {{ items.form.date_lte|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-6">
+                                {{ items.form.date_gte|as_crispy_field }}
+                            </div>
+
+                        </div>
+
+                        <div class="row" >
+
+                            <div class="col-md-6">
+                                {{ items.form.ville|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-6">
+                                {{ items.form.cars__immatriculation|as_crispy_field }}
+                            </div>
+                        
+                        </div>
+
+                        <button type="submit">Lancer la recherche</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+        <div class="outer-w3-agile mt-3">
+            <div class="row">
+                <div class="add-button"> <a href="{% url 'archivages_app:add.bordereau'  %}" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle"></i> Ajouter</a></div>
+                {% if request.user|has_group:"manager" %}
+                    <div class="add-button"> <a href="{% url 'colis_apps:rapport.coli'  %}" class="btn btn-success btn-sm"><i class="far fa-file-excel"></i> Rapport</a></div>
+                {% endif %}
+            </div>
+        </div>
+
+
+        <div class="outer-w3-agile mt-3">
+                    {% if items.qs %} {# Si il existe des plaintes afficher le tableau sinon ne rien afficher #}
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                <th>#</th>
+                                <th>Date </th>
+                                <th class='d-none d-lg-block'>Ville</th>
+                                <th>Cars</th>
+                                <th class='d-none d-lg-block'>Montant</th>
+                                
+                                </tr>
+                            </thead>
+                                
+                            <tbody>
+                                
+                                {% for item in items.qs %} {# Lire les valeurs trouvees  #}
+                                    <tr>
+                                        <th scope="row">
+                                            <a href="{% url 'archivages_app:update.bordereau' item.id %}" >{{ forloop.revcounter }} {# Comptage auto. #} </a>    
+                                        </th> 
+                                        <td>
+                                            {{item.date}}
+                                        </td>
+                                        <td class='d-none d-lg-block'>{{item.ville}}</td>
+                                        <td>{{item.cars}}</td>
+                                        <td class='d-none d-lg-block'>{{item.libelle}}</td> 
+                                    </tr>
+                                
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    
+                    </div>
+                {% endif %}
+        </div>
+
+
+{% endblock %}
+
+{% block foot-javascript %} 
+
+  
+
+{% endblock %}
+

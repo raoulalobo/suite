@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Car , CarteBleue, CarteGrise
+from .models import Car 
 from import_export.admin import ImportExportModelAdmin
 
 
@@ -13,15 +13,3 @@ class CarAdmin(ImportExportModelAdmin):
     #change_list_template = "admin/change_list_filter_sidebar.html"
     list_display = ['immatriculation', 'seat']
     list_filter = ['immatriculation', 'seat']
-
-
-@admin.register(CarteBleue)
-class CarteBleueAdmin(ImportExportModelAdmin):
-    #change_list_template = "admin/change_list_filter_sidebar.html"
-    list_display = ['numero', 'validite', 'immatriculation']
-    list_filter = ['immatriculation']
-
-@admin.register(CarteGrise)
-class CarteGriseAdmin(ImportExportModelAdmin):
-    list_display = ['numero', 'validite', 'immatriculation']
-    list_filter = ['immatriculation']

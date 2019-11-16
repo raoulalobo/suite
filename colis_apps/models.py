@@ -63,11 +63,13 @@ class Coli(models.Model):
     RECU = 'recu'
     RETIRE = 'retire'
     VOYAGEUR = 'voyageur'
+    NONTROUVE = 'nontrouve'
     ETAT_CHOICES = (
         (ENVOYE, 'envoye'),
         (VOYAGEUR, 'voyageur'),
         (RECU, 'recu'),
         (RETIRE, 'retire'),
+        (NONTROUVE, 'nontrouve'),
     )
     id = models.UUIDField( primary_key=True, default=uuid.uuid4, editable=False)
     #addtime = l'heure d'ajout enregistre par la machine
@@ -76,6 +78,7 @@ class Coli(models.Model):
     telephone_exp = models.CharField( max_length=100, default='N.A' )
     telephone_dest = models.CharField( max_length=100, default='N.A' )
     destination = models.CharField( max_length=16, choices=DESTINATION_CHOICES, default=NA, )
+    valeur_declaree = models.PositiveIntegerField(default=0)
     montant = models.PositiveIntegerField()
     libelle = models.CharField( max_length=100, default='N.A')
     immatriculation = models.ForeignKey( Car, related_name='car', on_delete=models.CASCADE)
@@ -96,7 +99,7 @@ class Coli(models.Model):
 
 class ColisFile(models.Model):
 
-    file = models.FileField( upload_to="files/%Y/%m/%d", null=True, blank=True )
+    file = models.FileField(null=True, blank=True )
     coli = models.ForeignKey( Coli, on_delete=models.CASCADE )
 
     def __str__(self):

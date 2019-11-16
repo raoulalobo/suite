@@ -1,0 +1,119 @@
+{% extends "base_.html" %}
+{% load crispy_forms_tags %}
+{% load group_filter %}
+{% block extrahead %} {{ mtickets_query.form.media }} {% endblock %}
+
+
+{% block title %}{% endblock %}
+
+
+{% block 'content' %}
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form method="get">
+                    
+                        {% csrf_token %}
+                            
+                        <div class="row" >
+
+                            <div class="col-md-6">
+                                {{ mtickets_query.form.date_lte|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-6">
+                                {{ mtickets_query.form.date_gte|as_crispy_field }}
+                            </div>
+                        
+                        </div>
+
+
+
+                        <div class="row" >
+
+                            <div class="col-md-6">
+                                {{ mtickets_query.form.partner|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-6">
+                                {{ mtickets_query.form.ticket|as_crispy_field }}
+                            </div>
+
+                        </div>
+
+
+                        <div class="row" >
+
+                            <div class="col-md-6">
+                                {{ mtickets_query.form.name|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-6">
+                                {{ mtickets_query.form.cni|as_crispy_field }}
+                            </div>
+
+                        </div>
+
+                        <button type="submit">Lancer la recherche</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="outer-w3-agile mt-3">
+        <div class="row">
+            <div class="add-button"> <a href="{% url 'mtickets_apps:add.mticket'  %}" class="btn btn-primary btn-sm"> <span class="oi oi-plus"></span> Ajouter </a> </div>
+            {% if request.user|has_group:"manager" %}
+                <div class="add-button"> <a href="{% url 'colis_apps:rapport.coli'  %}" class="btn btn-success btn-sm"> <span class="oi"></span> Rapport </a> </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+   <!-- table7 -->
+                <div class="outer-w3-agile mt-3">
+                    <h4 class="tittle-w3-agileits mb-4">{{mtickets_query.qs|length}} resultat(s) trouve(s) .</h4>
+                    
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>_#</th>
+                                    <th>MTicket</th>
+                                    <th>Date</th>
+                                    <th>Partenaire</th>
+                                    <th>Nom</th>
+                                    <th>CNI</th>
+                                </tr>
+                            </thead>
+                            <tbody>    
+                                {% for mticket in mtickets_query.qs %} {# Lire les plaintes trouvees  #}
+                                    <tr>
+                                         <th scope="row"> 
+                                            {% if perms.colis_apps.change_coli %}
+                                                <a href="{% url 'mtickets_apps:update.mticket' mticket.id %}">{{ forloop.revcounter }}{# Comptage auto. #} <i class="fas fa-pen"></i></a>
+                                            {% endif %}
+                                        </th>
+                                        <td>{{mticket.ticket}}</td>
+                                        <td>{{mticket.dateheure}}</td>
+                                        <td>{{mticket.partner}}</td>
+                                        <td>{{mticket.name}}</td>
+                                        <td>{{mticket.cni}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+    <!--// table7 -->
+
+{% endblock %}
+
+{% block foot-javascript %} 
+
+{% endblock %}
