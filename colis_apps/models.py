@@ -83,6 +83,7 @@ class Retour(models.Model):
     mvt = models.CharField( max_length=100, blank = True )
     phone = models.CharField( max_length=100, default='N.A' , unique = True )
     role = models.CharField( max_length=100, blank = True )
+    nom = models.CharField( max_length=100, default='N.A'  )
     ville = models.CharField( max_length=100, blank = True )
     appele = models.CharField( max_length=10 , choices=DATA_CHOICES , default=NA , )
     satisfait = models.CharField( max_length=10 , choices=DATA_CHOICES , default=NA , )

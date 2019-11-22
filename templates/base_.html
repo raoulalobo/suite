@@ -92,14 +92,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="profile-bg"></div>
             <ul class="list-unstyled components">
 
-                {% if perms.colis_apps.can_view_coli %}
+                {% if perms.colis_apps.view_coli %}
                 <li class="{{facture_pages}}">
                     <a href="{% url 'colis_apps:list.coli' %}"><i class="fas fa-box-open"></i> Colis</a>
                 </li>
                 {% endif %}
 
 
-                {% if perms.archivages_app.can_view_scan %}
+                {% if perms.archivages_app.view_scan %}
                 <li class="{{bordereau_pages}}">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">
                         <i class="far fa-copy"></i>
@@ -133,7 +133,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </li>
                 {% endif %}
 
-                {% if perms.mtickets_apps.can_view_mticket %}
+                {% if perms.mtickets_apps.view_mticket %}
                 <li class="{{ticket_pages}}">
                     <a href="{% url 'mtickets_apps:list.mtickets' %}">
                         <i class="fas fa-money-check-alt"></i>
