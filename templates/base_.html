@@ -73,7 +73,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     fonts-->
 
-    
+    {% load group_filter %}
     
     
 </head>
@@ -85,15 +85,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <nav id="sidebar">
             <div class="sidebar-header">
                 <h1>
-                    <a href="index.html">FinexsApps</a>
+                    <a href="{% url 'colis_apps:list.coli' %}">FinexsApps</a>
                 </h1>
                 <span>FA</span>
             </div>
             <div class="profile-bg"></div>
             <ul class="list-unstyled components">
+
+                {% if request.user|has_group:"colis" %}
                 <li class="{{facture_pages}}">
                     <a href="{% url 'colis_apps:list.coli' %}"><i class="fas fa-box-open"></i> Colis</a>
                 </li>
+                {% endif %}
+
+
+                {% if request.user|has_group:"scan" %}
                 <li class="{{bordereau_pages}}">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">
                         <i class="far fa-copy"></i>
@@ -125,13 +131,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         -->
                     </ul>
                 </li>
-                
+                {% endif %}
+
+                {% if request.user|has_group:"resa" %}
                 <li class="{{ticket_pages}}">
                     <a href="{% url 'mtickets_apps:list.mtickets' %}">
                         <i class="fas fa-money-check-alt"></i>
                         m-tickets
                     </a>
                 </li>
+                {% endif %}
                 <!-- A utiliser un jour 
                 <li>
                     <a href="#">
@@ -224,6 +233,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 -->
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url "account:logout" %}">Logout</a>
+                                <a class="dropdown-item" href="{% url "account:password_change" %}">change password</a>
                             </div>
                         </li>
                     </ul>

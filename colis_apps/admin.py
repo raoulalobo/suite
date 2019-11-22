@@ -1,7 +1,19 @@
 from django.contrib import admin
-from .models import Coli, Profile
+from .models import Coli, Profile, Client , Retour
 
 # Register your models here.
+
+@admin.register(Client)
+class ClientAdmin(admin.ModelAdmin):
+    list_display = ['created', 'last_transaction', 'phone','nom','ville','quartier']
+    list_filter = ['created', 'ville','quartier']
+
+
+@admin.register(Retour)
+class RetourAdmin(admin.ModelAdmin):
+    list_display = ['created', 'last_transaction', 'phone','role','appele','satisfait']
+    list_filter = ['created','phone', 'appele','satisfait']
+
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):

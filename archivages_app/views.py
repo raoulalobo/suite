@@ -62,7 +62,7 @@ def add_bordereau(request):
 #@permission_required('colis_apps.change_coli', login_url='colis_apps:denied')
 def update_bordereau(request, _id ):
     
-    return mise_a_jour_scans( request, _id, Bordereau, ScanFichier, BordereauForm, ScanFichierForm, 'colis_apps.delete_coli', 'observatioin', 'bordereau')
+    return mise_a_jour_scans( request, _id, Bordereau, ScanFichier, BordereauForm, ScanFichierForm, 'colis_apps.delete_coli', 'observation', 'bordereau')
 
 #@permission_required('colis_apps.delete_coli', login_url='colis_apps:denied')
 def delete_bordereau(request, _id ):
@@ -92,36 +92,8 @@ def add_bleue(request):
 
 #@permission_required('colis_apps.change_coli', login_url='colis_apps:denied')
 def update_bleue(request, _id ):
-    item = Bleue.objects.get( pk = _id )
-    joint = ScanFichier.objects.filter( bleue = _id )
-    form = BleueForm(request.POST or None, instance=item )
-    file_form = ScanFichierForm( request.POST or None , request.FILES  )
-    files = request.FILES.getlist('file')
-    history = Bleue.history.filter( id = _id )
-
-    if form.is_valid() and file_form.is_valid() :
-        commit = form.save(commit=False)
-
-        if request.user.has_perm('colis_apps.delete_coli'):
-            commitsave = commit.save()
-        else:
-            commitsave = commit.save(update_fields=['cars'])
-
-        for f in files :
-                file_instance = ScanFichier(file=f,  content_object= commit  )
-                file_instance.save() 
-       
-            
-        messages.success( request,'Item has been updated')
-        return redirect('archivages_app:list.bleue')
-    else:
-        form = BleueForm( None,  instance=item )
-        file_form = ScanFichierForm()
-
-    #delta = datetime.datetime.now().date() - item.date
-    #d = delta.days
-
-    return render(request, 'bleue/add.html', { 'form': form , 'file_form' : file_form , 'joint': joint , 'history': history, 'item': item, 'update': True })
+    
+    return mise_a_jour_scans( request, _id, Bleue, ScanFichier, BleueForm, ScanFichierForm, 'colis_apps.delete_coli', 'observation', 'bleue')
 
 #@permission_required('colis_apps.delete_coli', login_url='colis_apps:denied')
 def delete_bleue(request, _id ):

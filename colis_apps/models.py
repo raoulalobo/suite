@@ -38,6 +38,7 @@ def save_user_profile(sender, instance, **kwargs):
     #    instance.profile.save()
     #else :
     #    Profile.objects.create(user=instance)
+    
 
 # Create your models here.
 
@@ -47,7 +48,51 @@ class ColiManager(models.Manager):
 
     def dla(self, size):
         return self.filter(destination='DLA')
-        
+
+class Client(models.Model):
+
+    id = models.UUIDField( primary_key=True, default=uuid.uuid4, editable = False )
+    #addtime = l'heure d'ajout enregistre par la machine
+    created = models.DateTimeField( auto_now_add = True )
+    last_transaction = models.DateTimeField( auto_now = True )
+    mvt = models.CharField( max_length=100, blank = True )
+    phone = models.CharField( max_length=100, default='N.A' , unique = True )
+    nom = models.CharField( max_length=100, default='N.A'  )
+    ville = models.CharField( max_length=100, blank = True  )
+    quartier = models.CharField( max_length=100, blank = True  )
+    history = HistoricalRecords()
+
+    def __str__(self):
+        return 'file {} '.format(self.phone)
+
+class Retour(models.Model):
+
+    OUI = 'OUI'
+    NON = 'NON'
+    NA = 'NA'
+    DATA_CHOICES = (
+        (OUI, 'OUI'),
+        (NON, 'NON'),
+        (NA, 'NA'),
+    )
+
+    id = models.UUIDField( primary_key=True, default=uuid.uuid4, editable = False )
+    #addtime = l'heure d'ajout enregistre par la machine
+    created = models.DateTimeField( auto_now_add = True )
+    last_transaction = models.DateTimeField( auto_now = True )
+    mvt = models.CharField( max_length=100, blank = True )
+    phone = models.CharField( max_length=100, default='N.A' , unique = True )
+    role = models.CharField( max_length=100, blank = True )
+    ville = models.CharField( max_length=100, blank = True )
+    appele = models.CharField( max_length=10 , choices=DATA_CHOICES , default=NA , )
+    satisfait = models.CharField( max_length=10 , choices=DATA_CHOICES , default=NA , )
+    details = models.TextField()
+    history = HistoricalRecords()
+
+    def __str__(self):
+        return 'file {} '.format(self.phone)
+
+
 
 class Coli(models.Model):
 
@@ -73,9 +118,12 @@ class Coli(models.Model):
     )
     id = models.UUIDField( primary_key=True, default=uuid.uuid4, editable=False)
     #addtime = l'heure d'ajout enregistre par la machine
+    created = models.DateTimeField( default=timezone.now )
     dateheure = models.DateTimeField( auto_now=True )
     numero_colis = models.CharField( max_length=100, default='N.A' , unique=True )
+    nom_exp = models.CharField( max_length=100, default='N.A' )
     telephone_exp = models.CharField( max_length=100, default='N.A' )
+    nom_dest = models.CharField( max_length=100, default='N.A' )
     telephone_dest = models.CharField( max_length=100, default='N.A' )
     destination = models.CharField( max_length=16, choices=DESTINATION_CHOICES, default=NA, )
     valeur_declaree = models.PositiveIntegerField(default=0)

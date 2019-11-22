@@ -104,7 +104,7 @@
                                     <tr>
                                          <th scope="row"> 
                                             {% if perms.colis_apps.change_coli %}
-                                                <a href="{% url 'colis_apps:update.coli' coli.id %}">{{ forloop.revcounter }}{# Comptage auto. #} <i class="fas fa-pen"></i></a>
+                                                <a href="{% url 'colis_apps:update.coli' coli.id %}">{{ forloop.revcounter }}{# Comptage auto. #}</a>
                                             {% endif %}
                                         </th>
                                         <td>{{coli.numero_colis}}</td>

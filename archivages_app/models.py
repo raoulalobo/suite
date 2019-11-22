@@ -37,7 +37,7 @@ class Scan(models.Model):
     id = models.UUIDField( primary_key=True, default=uuid.uuid4, editable=False)
     dateheure_saisie = models.DateTimeField( auto_now=True )
     date = models.DateField( default=date.today )
-    libelle = models.CharField( max_length=50, default='N.A')
+    libelle = models.CharField( max_length=500, default='N.A')
     ville = models.CharField( max_length=16, choices=DESTINATION_CHOICES, default=NA, )
     cars = models.ForeignKey( Car, on_delete=models.CASCADE )
     observation = models.TextField()

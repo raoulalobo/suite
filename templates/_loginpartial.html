@@ -1,6 +1,8 @@
 <ul class="navbar-nav ml-auto">
     {% if user.is_authenticated %}
     
+            <!-- 
+
             <li class="nav-item">
                 <a class="nav-link" href="{% url "account:password_change" %}">change password</a>
             </li>      
@@ -8,9 +10,17 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url "account:logout" %}">Log out</a>
             </li>
+
+            -->
+
     {% else %}
+    
+            <!-- 
+
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'account:login' %}">Log in</a>
             </li>
+
+            -->
     {% endif %}
 </ul>

@@ -21,11 +21,11 @@ def alert():
         if ( d == 30 ):
             list.append(item.cars.immatriculation)
             message = '30 jours pour expiration de(s) vehicule(s) : {} '.format( list )
-            payload = {'action': 'sendmessage', 'username': 'FINEXS', 'password': 'Finexs12345', 'recipient': '237696669942' , 'messagetype':'SMS:TEXT', 'messagedata':message}
+            payload = {'action': 'sendmessage', 'username': 'FINEXS', 'password': 'Finexs12345', 'recipient': '237697509899' , 'messagetype':'SMS:TEXT', 'messagedata':message}
             r = requests.get("http://api.vassarl.com:9501/api", params=payload)
         else :
             message = 'RAS'
-            payload = {'action': 'sendmessage', 'username': 'FINEXS', 'password': 'Finexs12345', 'recipient': '237696669942' , 'messagetype':'SMS:TEXT', 'messagedata':message}
+            payload = {'action': 'sendmessage', 'username': 'FINEXS', 'password': 'Finexs12345', 'recipient': '237697509899' , 'messagetype':'SMS:TEXT', 'messagedata':message}
             r = requests.get("http://api.vassarl.com:9501/api", params=payload)
    
 

@@ -36,8 +36,6 @@ class ScanFilter(django_filters.FilterSet):
         }
 
 
-
-
 class FactureFilter(ScanFilter):
 
     demandeur = django_filters.CharFilter(label='Demandeur', lookup_expr='icontains')

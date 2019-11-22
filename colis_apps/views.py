@@ -105,7 +105,8 @@ def update_coli(request, coli_id ):
     if coli_form.is_valid() and file_form.is_valid() :
         colicommit = coli_form.save(commit=False)
 
-        if request.user.has_perm('colis_apps.delete_coli'):
+        #if request.user.has_perm('colis_apps.delete_coli'):
+        if request.user.groups.filter(name = 'colis_admin').exists():
             coli = colicommit.save()
         else:
             coli = colicommit.save(update_fields=['etat_colis', 'emplacement'])
