@@ -2,7 +2,7 @@ from django.contrib.auth.models import User, Group
 
 def one_time_startup() :
 
-    liste = ['manager','colis','colis_admin','resa','resa_admin','scan','scan_admin']
+    liste = ['manager','management','colis','colis_admin','resa','resa_admin','scan','scan_admin']
     for name in liste : 
         try:
             group = Group.objects.get(name=name)

@@ -9,7 +9,28 @@ import datetime
 import requests
 from django.db.models import Sum
 from .tasks import order_created , rapport_created
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.models import Group
 # Create your views here.
+
+def email_check(user):
+    return user.email.endswith('@example.com')
+
+def verify_group(user):
+    return user.email.endswith('@example.com')
+
+def has_group(user, group_name):
+    group = Group.objects.get(name=group_name)
+    return True if group in user.groups.all() else False
+
+def one_time_startup() :
+
+    liste = ['manager','management','colis','colis_admin','resa','resa_admin','scan','scan_admin']
+    for name in liste : 
+        try:
+            group = Group.objects.get(name=name)
+        except Group.DoesNotExist:
+            group = Group.objects.create(name=name)
 
 @login_required
 def list_coli(request):
@@ -93,7 +114,7 @@ def add_coli(request):
 
     return render(request,'coli/add.html',{'coli_form': coli_form , 'file_form' : file_form })
 
-@permission_required('colis_apps.change_coli', login_url='colis_apps:denied')
+@permission_required('colis_apps.view_coli', login_url='colis_apps:denied')
 def update_coli(request, coli_id ):
     item = Coli.objects.get( pk = coli_id )
     joint = ColisFile.objects.filter( coli = coli_id )
@@ -105,11 +126,15 @@ def update_coli(request, coli_id ):
     if coli_form.is_valid() and file_form.is_valid() :
         colicommit = coli_form.save(commit=False)
 
-        #if request.user.has_perm('colis_apps.delete_coli'):
-        if request.user.groups.filter(name = 'colis_admin').exists():
+        if request.user.has_perm('colis_apps.delete_coli'):
+        #if request.user.groups.filter(name = 'colis_admin').exists():
             coli = colicommit.save()
-        else:
+        #else:
+        #    coli = colicommit.save(update_fields=['etat_colis', 'emplacement'])
+       
+        if request.user.has_perm('colis_apps.change_coli'):
             coli = colicommit.save(update_fields=['etat_colis', 'emplacement'])
+            
 
         for f in files :
                 file_instance = ColisFile(file=f, coli=colicommit )
@@ -155,7 +180,6 @@ def delete_file(request, file_id , coli_id ):
     item.delete()
     messages.success( request,'File has been deleted')
     return redirect('colis_apps:update.coli' , coli_id )
-
 
 
 @login_required
