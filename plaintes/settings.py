@@ -208,8 +208,11 @@ BOOTSTRAP4 = {
 }
 
 # Accounts
-LOGIN_REDIRECT_URL = 'colis_apps:list.coli'
+LOGIN_REDIRECT_URL = 'colis_apps:homeredirect'
+
+#if True :
 LOGIN_URL = 'account:login'
+
 LOGOUT_URL = 'account:logout'
 
 # Celery
@@ -222,3 +225,9 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute=0, hour='6')
     }
 }
+
+# Affaire de Sessions 
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 900 # set just 10 seconds to test
+SESSION_SAVE_EVERY_REQUEST = True

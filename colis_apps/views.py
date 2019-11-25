@@ -33,7 +33,23 @@ def one_time_startup() :
             group = Group.objects.create(name=name)
 
 @login_required
+def homeredirect(request):
+
+    if request.user.has_perm('colis_apps.view_coli'):
+        return redirect('colis_apps:list.coli')
+    elif request.user.has_perm('archivages_app.view_scan'):
+        return redirect('archivages_app:list.facture')
+    elif request.user.has_perm('mtickets_apps.view_mticket'):
+        return redirect('mtickets_apps:list.mticket')
+    else :
+        return redirect('colis_apps:denied')
+
+
+    
+
+@login_required
 def list_coli(request):
+
 
     pneuss = Coli.objects.all()
     pneus = Coli.objects.all().filter( dateheure__gte=datetime.date.today() ) 

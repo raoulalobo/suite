@@ -69,7 +69,7 @@
         <div class="row">
             <div class="add-button"> <a href="{% url 'mtickets_apps:add.mticket'  %}" class="btn btn-primary btn-sm"> <span class="oi oi-plus"></span> Ajouter </a> </div>
             {% if request.user|has_group:"manager" %}
-                <div class="add-button"> <a href="{% url 'colis_apps:rapport.coli'  %}" class="btn btn-success btn-sm"> <span class="oi"></span> Rapport </a> </div>
+                
             {% endif %}
         </div>
     </div>

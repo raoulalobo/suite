@@ -27,11 +27,11 @@ def order_created(order_id):
 
     coli = Coli.objects.get(id=order_id)
 
-    if coli.telephone_exp == coli.telephone_dest :
-        Retour.objects.create( mvt = coli.id, phone = coli.telephone_exp, nom = coli.nom_exp , role='envoie' )
-    else :
-        Retour.objects.create( mvt = coli.id, phone = coli.telephone_exp, nom = coli.nom_exp , role='envoie' )
-        Retour.objects.create( mvt = coli.id, phone = coli.telephone_dest,nom = coli.nom_dest, role='retrait' )
+    #if coli.telephone_exp == coli.telephone_dest :
+    #    Retour.objects.create( mvt = coli.id, phone = coli.telephone_exp, nom = coli.nom_exp , role='envoie' )
+    #else :
+    #    Retour.objects.create( mvt = coli.id, phone = coli.telephone_exp, nom = coli.nom_exp , role='envoie' )
+    #    Retour.objects.create( mvt = coli.id, phone = coli.telephone_dest,nom = coli.nom_dest, role='retrait' )
 
     
     if  coli.etat_colis == 'envoye' :

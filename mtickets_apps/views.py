@@ -12,7 +12,7 @@ import requests
 
 # Create your views here.
 
-@login_required
+@permission_required('mtickets_apps.view_mticket', login_url='colis_apps:denied')
 def list_mtickets(request):
 
     mticketss = Mticket.objects.all()
@@ -55,7 +55,7 @@ def list_mtickets(request):
     return render(request,'mticket/list.html',{ 'mtickets_query': mticket_filter } )
 
 
-@permission_required('colis_apps.add_coli', login_url='colis_apps:denied')
+@permission_required('mtickets_apps.add_mticket', login_url='colis_apps:denied')
 def add_mticket(request):
 
     ##Ce a quoi mon code doit ressembler
@@ -81,7 +81,7 @@ def add_mticket(request):
         
     return render(request,'mticket/add_.html',{'mticket_form': form })
 
-
+@permission_required('mtickets_apps.change_mticket', login_url='colis_apps:denied')
 def update_mticket(request, _id ):
     item = Mticket.objects.get( pk = _id )
     form = MticketForm(request.POST or None, instance=item )
@@ -95,7 +95,7 @@ def update_mticket(request, _id ):
     return render(request, 'mticket/add_.html', { 'mticket_form': form , 'history':history , 'update': True , 'item': item})
 
 
-@login_required
+@permission_required('mtickets_apps.view_mticket', login_url='colis_apps:denied')
 def detail_mticket( request, mticket_id ):
     
     item = Mticket.objects.get( pk = mticket_id )
@@ -104,7 +104,7 @@ def detail_mticket( request, mticket_id ):
     return render(request,'mticket/detail.html',{'item': item , 'history': history })
 
 
-@permission_required('colis_apps.delete_coli', login_url='colis_apps:denied')
+@permission_required('mtickets_apps.delete_mticket', login_url='colis_apps:denied')
 def delete( request, mticket_id ):
     
     item = Mticket.objects.get( pk = mticket_id )
@@ -112,7 +112,7 @@ def delete( request, mticket_id ):
     return render(request,'mticket/delete.html',{'item': item })
 
 
-@permission_required('colis_apps.delete_coli', login_url='colis_apps:denied')
+@permission_required('mtickets_apps.delete_mticket', login_url='colis_apps:denied')
 def delete_mticket(request, mticket_id ):
     item = Mticket.objects.get( pk = mticket_id )
     item.delete()

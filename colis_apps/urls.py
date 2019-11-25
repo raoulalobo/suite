@@ -6,8 +6,9 @@ app_name = 'colis_apps'
 urlpatterns = [
 
     # URL
+    path('', views.homeredirect, name='homeredirect'),
     path('accces-denied/', views.denied, name='denied'),
-    path('', views.list_coli, name='list.coli'),
+    path('list/coli', views.list_coli, name='list.coli'),
     path('rapport/', views.rapport_coli, name='rapport.coli'),
     path('add/', views.add_coli, name='add.coli'),
     path('update/<coli_id>', views.update_coli, name='update.coli'),
