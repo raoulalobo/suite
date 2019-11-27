@@ -119,7 +119,7 @@ def add_coli(request):
                 file_instance.save()
 
             #SMS avec Celery et RabbitMQ
-            order_created.delay(coli.id)
+            order_created.delay( coli.id , request.user.username)
             
                 
             messages.success( request,'Item has been added')
@@ -156,7 +156,7 @@ def update_coli(request, coli_id ):
                 file_instance = ColisFile(file=f, coli=colicommit )
                 file_instance.save() 
         #SMS
-        order_created.delay(colicommit.id)
+        order_created.delay(colicommit.id , request.user.username )
             
         messages.success( request,'Item has been updated')
         return redirect('colis_apps:list.coli')
