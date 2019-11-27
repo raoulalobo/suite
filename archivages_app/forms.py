@@ -1,7 +1,7 @@
 #https://docs.djangoproject.com/fr/2.2/topics/forms/modelforms/
 
 from django import forms
-from .models import Scan, Facture, Bordereau, Bleue, Assurance, ScanFichier, Plainte
+from .models import Scan, Facture, Bordereau, Bleue, Assurance, ScanFichier, Plainte, Explication
 from django.forms import ClearableFileInput , Textarea
 #from bootstrap_datepicker_plus import DateTimePickerInput
 from tempus_dominus.widgets import DatePicker, TimePicker, DateTimePicker
@@ -73,6 +73,18 @@ class PlainteForm(ScanForm):
     class Meta(ScanForm.Meta):
         model = Plainte
         fields = ScanForm.Meta.fields + ('plaignant','phone','status','observation' )
+
+
+#----------------------------------------------------------------------------------------#
+
+class ExplicationForm(ScanForm):
+
+    class Meta(ScanForm.Meta):
+        model = Explication
+        fields = ScanForm.Meta.fields + ('nom','poste','reponse','observation' )
+        labels = {
+            'libelle': _('Objet'),
+        }
 
 
 #----------------------------------------------------------------------------------------#

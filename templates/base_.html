@@ -8,7 +8,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html lang="en">
 
 <head>
-    {% block 'title' %}<title>apps</title>{% endblock %}
+    {% block 'title' %}<title>app lgtq</title>{% endblock %}
     <!-- Meta Tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
@@ -35,8 +35,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     {% load static %}
 
-    <link rel="shortcut icon" href="{% static 'styles/favicon-96x96.png' %}" type="image/x-icon">
-    <link rel="icon" href="{% static 'styles/favicon-96x96.png' %}" type="image/x-icon">   
+    <link rel="shortcut icon" href="{% static 'styles/_favicon-96x96.png' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'styles/_favicon-96x96.png' %}" type="image/x-icon">   
 
     <!-- Style-sheets -->
 
@@ -88,7 +88,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <nav id="sidebar">
             <div class="sidebar-header">
                 <h1>
-                    <a href="{% url 'colis_apps:list.coli' %}">Apps</a>
+                    <a href="{% url 'colis_apps:homeredirect' %}">APP</a>
                 </h1>
                 <span>A</span>
             </div>
@@ -126,6 +126,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                          
                         <li>
                             <a href="{% url 'archivages_app:list.plainte' %}">Plaintes</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'archivages_app:list.explication' %}">D.E</a>
                         </li>
                         <!--
                         <li>

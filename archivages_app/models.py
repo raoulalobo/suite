@@ -88,4 +88,18 @@ class Plainte(Scan):
     status = models.CharField( max_length=16, choices=STATUS_CHOICES, default=NA, )
 
 
+class Explication(Scan):
+    OUI = 'OUI'
+    NON = 'NON'
+
+    STATUS_CHOICES = (
+        (OUI, 'OUI'),
+        (NON, 'NON'),
+    )
+    nom = models.CharField( max_length=50, default='N.A' )
+    poste = models.CharField( max_length=50, default='N.A' )
+    #Scan._meta.get_field('cars').max_length = 255
+    reponse = models.CharField( max_length=16, choices=STATUS_CHOICES, default=NON, )
+
+
 

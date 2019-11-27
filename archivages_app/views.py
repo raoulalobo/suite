@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from .models import Facture, Bordereau, Bleue, Assurance, ScanFichier, Plainte
+from .models import Facture, Bordereau, Bleue, Assurance, ScanFichier, Plainte, Explication
 from django.contrib import messages
-from .forms import PlainteForm, FactureForm , ScanFichierForm , BordereauForm,  BleueForm , AssuranceForm
+from .forms import ExplicationForm ,PlainteForm, FactureForm , ScanFichierForm , BordereauForm,  BleueForm , AssuranceForm
 from django.shortcuts import render , redirect
-from .filters import FactureFilter, BordereauFilter, BleueFilter, AssuranceFilter , PlainteFilter
+from .filters import ExplicationFilter ,FactureFilter, BordereauFilter, BleueFilter, AssuranceFilter , PlainteFilter
 import datetime
 from django.db.models import Sum
 from .utils import rosine , ajout_de_scans , mise_a_jour_scans , suppression_scan , suppression_scan_fichier
@@ -168,3 +168,29 @@ def delete_plainte( request , _id ):
 @permission_required('archivages_app.delete_scan', login_url='colis_apps:denied')
 def delete_file_plainte ( request , file_id , _id ):
     return suppression_scan_fichier ( request , file_id, _id, ScanFichier , 'plainte')
+
+
+#-----------------------------------------------------------------------------------------#
+
+@permission_required('archivages_app.view_scan', login_url='colis_apps:denied')
+def list_explication(request):
+
+    item_filter = rosine( request , Explication , ExplicationFilter , 'req_explication')
+
+    return render( request,'explication/list.html',{'items': item_filter } )
+
+@permission_required('archivages_app.add_scan', login_url='colis_apps:denied')
+def add_explication(request):
+    return ajout_de_scans( request , ExplicationForm , ScanFichierForm , ScanFichier , 'explication')
+
+@permission_required('archivages_app.view_scan', login_url='colis_apps:denied')
+def update_explication(request, _id):
+    return mise_a_jour_scans( request , _id, Explication , ScanFichier, ExplicationForm, ScanFichierForm, 'archivages_app.change_scan', 'observation', 'explication')
+
+@permission_required('archivages_app.delete_scan', login_url='colis_apps:denied')
+def delete_explication( request , _id ):
+    return suppression_scan ( request, _id, Explication , 'explication')
+
+@permission_required('archivages_app.delete_scan', login_url='colis_apps:denied')
+def delete_file_explication( request , file_id , _id ):
+    return suppression_scan_fichier ( request , file_id, _id, ScanFichier , 'explication')

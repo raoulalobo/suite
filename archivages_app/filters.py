@@ -1,5 +1,5 @@
 import django_filters
-from .models import Scan, Facture, Bordereau , Bleue,  Assurance , Plainte
+from .models import Scan, Facture, Bordereau , Bleue,  Assurance , Plainte , Explication
 from tempus_dominus.widgets import DatePicker, TimePicker, DateTimePicker
 #from bootstrap_datepicker.widgets import DatePicker
 from bootstrap_datepicker_plus import DateTimePickerInput , DatePickerInput , TimePickerInput
@@ -80,4 +80,14 @@ class PlainteFilter(ScanFilter):
         model = Plainte
         fields = ScanFilter.Meta.fields + ('phone', )
         exclude = ('ville',)
+
+
+class ExplicationFilter(ScanFilter):
+
+    nom = django_filters.CharFilter(label='Nom', lookup_expr='icontains')
+  
+    class Meta(ScanFilter.Meta) :
+        model = Explication
+        fields = ScanFilter.Meta.fields + ('nom', 'reponse' )
+        exclude = ('ville','cars')
 

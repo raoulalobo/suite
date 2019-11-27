@@ -47,4 +47,11 @@ urlpatterns = [
     path('delete/plainte/<file_id>/<_id>', views.delete_file_plainte, name='delete.file.plainte'),
 
 
+    path('list/explication', views.list_explication, name='list.explication'),
+    path('add/explication', views.add_explication, name='add.explication'),
+    path('update/explication/<_id>', views.update_explication, name='update.explication'),
+    path('delete/explication/<_id>', views.delete_explication, name='delete.explication'),
+    path('delete/explication/<file_id>/<_id>', views.delete_file_explication, name='delete.file.explication'),
+
+
 ]
