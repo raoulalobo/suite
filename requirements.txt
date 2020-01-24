@@ -13,7 +13,7 @@ chardet==3.0.4
 cssselect2==0.2.2
 defusedxml==0.6.0
 diff-match-patch==20181111
-Django==2.2
+Django>=2.2.9
 django-appconf==1.0.3
 django-autocomplete-light==3.5.0
 django-bootstrap-datepicker==1.4.0
@@ -44,7 +44,7 @@ mccabe==0.6.1
 odfpy==1.4.0
 openpyxl==2.6.2
 pep8==1.7.1
-Pillow==6.0.0
+Pillow>=6.2.0
 pkg-resources==0.0.0
 psycopg2==2.8.3
 pycparser==2.19
