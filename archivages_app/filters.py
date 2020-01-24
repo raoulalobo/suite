@@ -38,13 +38,13 @@ class ScanFilter(django_filters.FilterSet):
 
 class FactureFilter(ScanFilter):
 
-    demandeur = django_filters.CharFilter(label='Demandeur', lookup_expr='icontains')
+    libelle = django_filters.CharFilter(label='Libelle', lookup_expr='icontains')
     caissier = django_filters.CharFilter(label='Caissier', lookup_expr='icontains')
     categorie__categories = django_filters.CharFilter( label='Categorie', lookup_expr='icontains')
 
     class Meta(ScanFilter.Meta) :
         model = Facture
-        fields = ScanFilter.Meta.fields + ('demandeur','caissier', 'categorie' )
+        fields = ScanFilter.Meta.fields + ('libelle','caissier', 'categorie' )
         exclude = ('ville',)
 
 class BordereauFilter(ScanFilter):

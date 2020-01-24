@@ -41,8 +41,8 @@ def order_created(order_id, usr):
             payload = {'action': 'sendmessage', 'username': 'FINEXS', 'password': 'Finexs12345','originator': 'GENERAL', 'recipient': '237{}'.format( coli.telephone_dest) , 'messagetype':'SMS:TEXT', 'messagedata':message}
             r = requests.get("http://api.vassarl.com:9501/api", params=payload)
     else :
-        message = 'Cher client proprietaire du #{}, votre colis {} est en route pour {}. Montant paye : {} .Yde:699755276 ,Dla:656968928 -Plaintes:697509899 ( SMS )'.format( coli.telephone_exp , coli.numero_colis, coli.destination, coli.montant )
-        payload = {'action': 'sendmessage', 'username': 'FINEXS', 'password': 'Finexs12345', 'recipient': '237{}'.format(coli.telephone_exp) , 'messagetype':'SMS:TEXT', 'messagedata':message}
+        message = 'Cher client proprietaire du #{}, votre colis {} est en route pour {}.Yde:699755276 ,Dla:656968928 -Plaintes ( SMS uniquement ):697509899'.format( coli.telephone_dest , coli.numero_colis, coli.destination)
+        payload = {'action': 'sendmessage', 'username': 'FINEXS', 'password': 'Finexs12345', 'recipient': '237{}'.format(coli.telephone_dest) , 'messagetype':'SMS:TEXT', 'messagedata':message}
         r = requests.get("http://api.vassarl.com:9501/api", params=payload)
 
 

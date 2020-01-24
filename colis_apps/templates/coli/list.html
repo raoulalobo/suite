@@ -7,6 +7,15 @@
 
 {% block title %}{% endblock %}
 
+{% block foot-javascript %} 
+<script>
+    $("#id_numero_colis").change(function () {
+      console.log( $(this).val() );
+    });
+  </script>
+{% endblock %}
+
+
 {% block 'content' %}
     
     <div class="row">
@@ -134,9 +143,7 @@
 
 {% endblock %}
 
-{% block foot-javascript %} 
 
-{% endblock %}
 
 
 

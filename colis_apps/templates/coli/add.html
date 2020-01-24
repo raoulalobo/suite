@@ -22,9 +22,9 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Forms-1 -->
-            <div class="outer-w3-agile col-xl mt-3 mr-xl-3">
+            <div class="outer-w3-agile col-xl mt-3 mr-xl-3" id="printElement">
                 <h4 class="tittle-w3-agileits mb-4">Add/Modify/Details</h4>
-                <form method="post" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data" class="js-book-create-form">
 
                     {% csrf_token %}
                     {% bootstrap_form coli_form %}
@@ -95,10 +95,7 @@
                                 </div>
                                 {% endfor %}
                             </div>
-                        </div>
-
-                            
-
+                        </div>              
             </div>
             <!--// Forms-2 -->
         </div>  
@@ -110,5 +107,17 @@
 {% endblock %}
 
 {% block foot-javascript %}
-<script></script>
+<script>
+ 
+    $("#id_nom_exp").change(function () {
+      console.log( $(this).val() );
+    });
+    $("#id_numero_colis").change(function () {
+      console.log( $(this).val() );
+      //printJS({ printable: 'printElement', type: 'html', targetStyles: ['*'] })
+    });
+
+</script>
 {% endblock %}
+
+{{ form.media.js }}

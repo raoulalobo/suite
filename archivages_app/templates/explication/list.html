@@ -70,7 +70,7 @@
                                 <th>Date </th>
                                 <th class='d-none d-lg-block'>Nom</th>
                                 <th>Objet</th>
-                                <th class='d-none d-lg-block'>Montant</th>
+                                <th class='d-none d-lg-block'>Reponse</th>
                                 
                                 </tr>
                             </thead>
@@ -80,7 +80,7 @@
                                 {% for item in items.qs %} {# Lire les valeurs trouvees  #}
                                     <tr>
                                         <th scope="row">
-                                            <a href="{% url 'archivages_app:update.bordereau' item.id %}" >{{ forloop.revcounter }} {# Comptage auto. #} </a>    
+                                            <a href="{% url 'archivages_app:update.explication' item.id %}" >{{ forloop.revcounter }} {# Comptage auto. #} </a>    
                                         </th> 
                                         <td>
                                             {{item.date}}

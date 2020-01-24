@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import permission_required , login_required
 from django.shortcuts import render , redirect
+from django.http import JsonResponse
 from .forms import ColiForm , ColiFileForm
 from .models import Coli, ColisFile
 from .models import Profile
@@ -11,6 +12,8 @@ from django.db.models import Sum
 from .tasks import order_created , rapport_created
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import Group
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 # Create your views here.
 
 def email_check(user):
@@ -40,12 +43,10 @@ def homeredirect(request):
     elif request.user.has_perm('archivages_app.view_scan'):
         return redirect('archivages_app:list.facture')
     elif request.user.has_perm('mtickets_apps.view_mticket'):
-        return redirect('mtickets_apps:list.mticket')
+        return redirect('mtickets_apps:list.mtickets')
     else :
         return redirect('colis_apps:denied')
-
-
-    
+  
 
 @login_required
 def list_coli(request):
@@ -53,6 +54,8 @@ def list_coli(request):
 
     pneuss = Coli.objects.all()
     pneus = Coli.objects.all().filter( dateheure__gte=datetime.date.today() ) 
+
+
 
     req_pneu = request.GET
     req_pneu_list_key = list(req_pneu.keys())
@@ -62,7 +65,6 @@ def list_coli(request):
     
     if req_pneu_list_key :
     # Si les keys values existent ca veut dire q on clique sur la recherche    
-
         if not (  bool( req_pneu_list_value[2] ) and bool( req_pneu_list_value[3] ) ):
         # Si les champs dates sont vides filtrer les donnees sur la date du jour
             pneu_filter = ColiFilter( request.GET , queryset= pneus )
@@ -88,6 +90,9 @@ def list_coli(request):
         sess_req = True
 
 
+    #user_list = User.objects.all()
+ 
+
     #request.session['pneu_filter'] = pneu_filter
 
     return render(request,'coli/list.html',{ 'colis': pneu_filter ,  'montant' :  montant } )
@@ -107,6 +112,8 @@ def list_colis(request):
 
 @permission_required('colis_apps.add_coli', login_url='colis_apps:denied')
 def add_coli(request):
+    data = dict()
+
     if request.method == 'POST':
         coli_form = ColiForm(request.POST )
         file_form = ColiFileForm( request.POST , request.FILES )
@@ -114,16 +121,16 @@ def add_coli(request):
         if coli_form.is_valid() and file_form.is_valid() :
             coli = coli_form.save()
             for f in files :
-                #ajouter un tache avec celery ici
                 file_instance = ColisFile(file=f, coli=coli )
                 file_instance.save()
 
             #SMS avec Celery et RabbitMQ
-            order_created.delay( coli.id , request.user.username)
+            order_created.delay( coli.id , request.user.username )
             
-                
+            #Django message    
             messages.success( request,'Item has been added')
-            return redirect('colis_apps:list.coli')
+                   #Redirection simple              #redirection vers l'impression du ticket de caisse 
+            return redirect('colis_apps:list.coli') #redirect('colis_apps:detail.coli', coli.id )
     else:
         coli_form = ColiForm()
         file_form = ColiFileForm()
@@ -159,7 +166,9 @@ def update_coli(request, coli_id ):
         order_created.delay(colicommit.id , request.user.username )
             
         messages.success( request,'Item has been updated')
-        return redirect('colis_apps:list.coli')
+        
+               #Redirection simple               #redirection vers l'impression du ticket de caisse
+        return redirect('colis_apps:list.coli')  #redirect('colis_apps:detail.coli', coli.id )
     else:
         coli_form = ColiForm( None,  instance=item )
         file_form = ColiFileForm()
@@ -173,7 +182,7 @@ def detail_coli( request, coli_id ):
     files = ColisFile.objects.filter( coli_id = coli_id )
     history = Coli.history.filter( id = coli_id ) 
 
-    return render(request,'coli/detail.html',{'item': item , 'files': files  , 'history': history })
+    return render(request,'coli/detail_.html',{'item': item , 'files': files  , 'history': history })
 
 @permission_required('colis_apps.delete_coli', login_url='colis_apps:denied')
 def delete( request, coli_id ):

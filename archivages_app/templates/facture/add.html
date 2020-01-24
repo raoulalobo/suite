@@ -7,7 +7,7 @@
     {{ file_form.media }}
 {% endblock %}
 
-
+{% load watermark %}
 
 {% block title %} {% endblock %}
 
@@ -47,7 +47,7 @@
                                                 </div>
 
                                                 <div class="modal-body">
-                                                    <img src="{{j.file.url}}" class="img-fluid" alt="...">
+                                                    <img src={{j.file.url}} class="img-fluid" alt="...">
                                                 </div>
 
                                                 <div class="modal-footer">

@@ -49,6 +49,15 @@ class ScanFichier(models.Model):
     file = models.FileField(null=True, blank=True )
     scanfichier = models.ForeignKey( Scan , on_delete=models.CASCADE )
 
+class Roue(Scan):
+
+    kilometrage = models.PositiveIntegerField()
+    marque_pneu = models.CharField( max_length=50 )
+    nbr_pneu = models.PositiveSmallIntegerField()
+    responsable = models.CharField( max_length=50 )
+    chauffeur = models.CharField( max_length=50 )
+
+
 
 class Facture(Scan):
  

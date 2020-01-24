@@ -43,7 +43,7 @@
                         <div class="row" >
 
                             <div class="col-md-6">
-                                {{ factures.form.demandeur|as_crispy_field }}
+                                {{ factures.form.libelle|as_crispy_field }}
                             </div>
 
                             <div class="col-md-6">
@@ -79,12 +79,13 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                <th>#</th>
-                                <th>Date </th>
-                                <th class='d-none d-lg-block'>Ville</th>
-                                <th>Cars</th>
-                                <th class='d-none d-lg-block'>Montant</th>
-                                
+                                    <th>#</th>
+                                    <th>DateHeure </th>
+                                    <th>Libelle</th>
+                                    <th>Immatriculation</th>
+                                    <th>Montant</th>
+                                    <th>Caissier</th>
+                                    <th >Ville</th> 
                                 </tr>
                             </thead>
                                 
@@ -95,12 +96,12 @@
                                         <th scope="row">
                                             <a href="{% url 'archivages_app:update.facture' facture.id %}" >{{ forloop.revcounter }} {# Comptage auto. #} </a>    
                                         </th> 
-                                        <td>
-                                            {{facture.date}}
-                                        </td>
-                                        <td class='d-none d-lg-block'>{{facture.ville}}</td>
+                                        <td>{{facture.date}}</td>
+                                        <td>{{facture.libelle}}</td>
                                         <td>{{facture.cars}}</td>
-                                        <td class='d-none d-lg-block'>{{facture.montant}}</td> 
+                                        <td>{{facture.montant}}</td> 
+                                        <td>{{facture.caissier}}</td>
+                                        <td>{{facture.ville}}</td>
                                     </tr>
                                 
                                 {% endfor %}

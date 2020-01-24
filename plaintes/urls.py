@@ -14,16 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 # imports pour fichiers ( Images , Word ).
 from django.conf import settings
 from django.conf.urls.static import static
+
+#import de la fonction one_time_startup
 from .fct import one_time_startup
 
 urlpatterns = [
     path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
+    #re_path(r'^select2/', include('django_select2.urls')),
     #path('plaintes/', include('plaintes_app.urls', namespace='plaintes')),
     path('archivages/', include('archivages_app.urls', namespace='archivages')),
     path('pneus/', include('pneus_app.urls', namespace='pneus')),
@@ -32,6 +35,8 @@ urlpatterns = [
     path('account/', include('account.urls', namespace='account')),
 ]
 
+
+# Vient du fichier Views de Colis 
 one_time_startup()
 
 # Pourquoi cette ligne permet l'affichage des images.
