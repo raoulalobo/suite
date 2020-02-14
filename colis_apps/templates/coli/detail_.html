@@ -16,22 +16,18 @@
             <u class="test">Nom. dest. :</u> {{item.nom_dest}} </br>
             <u class="test">Valeur declarée:</u> {{item.valeur_declaree}} </br>
             <u class="test">Montant :</u> {{item.montant}} </br>
-            <u class="test">Libellé :</u> {{item.libelle}} </br>
-            <u class="test">Visa client ( j'ai lu et accepte les </br>
-               clause de FINEXS Express Courrier ) </u> </br></br></br></br></br>
+            <u class="test">Libellé :</u> {{item.libelle}} </br></br>
             <i>En cas de perte ou d'avarie d'un paquet</br>
-               ou coli expedié, FINEXS Express Courrier</br>
-               s'engage à dedommager à hauteur de </br> 
-               50% de la valeur de l'objet si cette </br> 
-               valeur a ete declarée et identifiée au</br>
-               moment du dépot .</br></i>
+                ou coli expedié, FINEXS Express Courrier</br>
+                s'engage à dedommager à hauteur de </br> 
+                50% de la valeur de l'objet si cette </br> 
+                valeur a ete declarée et identifiée au</br>
+                moment du dépot.</br></i>
+            <u class="test">Visa client ( j'ai lu et accepte les </br>
+               clauses de FINEXS Express Courrier ) </u> 
+
         </div>
 
-    </div>
-
-    <div class="row">
-
-    
     </div>
 
 {% endblock %}
@@ -41,7 +37,6 @@
         window.onload = function() {
             
             window.print() ;
-            
             
             }
         window.onafterprint = function() {

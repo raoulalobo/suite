@@ -27,15 +27,15 @@ SECRET_KEY = '9zf=gd@@1p%t9@pl61pmkt%+(+=@76g%t8vt7vgeb65a6q1=lo'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.8.102','ec2-3-13-36-233.us-east-2.compute.amazonaws.com','3.13.36.233', 'finexsapp.com','127.0.0.1','finexs.app.ngrok.io','radd.serveo.net' ]
+ALLOWED_HOSTS = ['192.168.8.124','ec2-3-13-36-233.us-east-2.compute.amazonaws.com','3.13.36.233', 'finexsapp.com','127.0.0.1','finexs.app.ngrok.io','radd.serveo.net' ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
     #'django_select2',
-    #'dal',
-    #'dal_select2',
+    'dal',
+    'dal_select2',
     #'suit',
     'account',
     'grappelli',
@@ -176,8 +176,8 @@ DEFAULT_FROM_EMAIL = 'finexs-informatique@finexsvoyages.net'
 
 
 
-AWS_ACCESS_KEY_ID = ''
-AWS_SECRET_ACCESS_KEY = ''
+AWS_ACCESS_KEY_ID = 'AKIAQWRU5E5ODR37AHWG'
+AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'scanfinexs'
 #AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 

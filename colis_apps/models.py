@@ -134,6 +134,7 @@ class Coli(models.Model):
     etat_colis = models.CharField( max_length=10, choices=ETAT_CHOICES, default=ENVOYE, )
     emplacement = models.PositiveIntegerField(default=0 , validators=[MaxValueValidator(50),])
     #zone = models.TextField(default='RAS')
+    #deleted = models.CharField( max_length=100, default='NON' )
     observation = models.TextField()
     history = HistoricalRecords()
 

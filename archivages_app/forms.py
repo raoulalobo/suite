@@ -54,6 +54,9 @@ class BleueForm(ScanForm):
     class Meta(ScanForm.Meta):
         model = Bleue
         fields = ScanForm.Meta.fields + ('numero_bleue','observation' )
+        labels = {
+            'date': _('Date expiration'),
+        }
 
 #----------------------------------------------------------------------------------------#
 

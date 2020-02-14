@@ -11,6 +11,8 @@ class ColiForm(forms.ModelForm):
         super( ColiForm, self ).__init__(*args, **kwargs)
 
 
+
+
     class Meta:
         model = Coli
         fields = ('numero_colis', 'nom_exp', 'telephone_exp', 'nom_dest', 'telephone_dest','immatriculation','destination','valeur_declaree','montant' , 'libelle' , 'etat_colis', 'emplacement', 'observation' )

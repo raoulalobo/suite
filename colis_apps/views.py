@@ -16,6 +16,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
+
 def email_check(user):
     return user.email.endswith('@example.com')
 
@@ -126,11 +127,18 @@ def add_coli(request):
 
             #SMS avec Celery et RabbitMQ
             order_created.delay( coli.id , request.user.username )
-            
+
             #Django message    
-            messages.success( request,'Item has been added')
-                   #Redirection simple              #redirection vers l'impression du ticket de caisse 
-            return redirect('colis_apps:list.coli') #redirect('colis_apps:detail.coli', coli.id )
+            #messages.success( request,'Item has been added')
+
+            current_user_groups = request.user.groups.values_list('name', flat=True)
+            
+            if 'douala' in current_user_groups  :
+                return redirect('colis_apps:detail.coli', coli.id )
+            else :
+                return redirect('colis_apps:list.coli') 
+
+        
     else:
         coli_form = ColiForm()
         file_form = ColiFileForm()
@@ -166,9 +174,14 @@ def update_coli(request, coli_id ):
         order_created.delay(colicommit.id , request.user.username )
             
         messages.success( request,'Item has been updated')
-        
-               #Redirection simple               #redirection vers l'impression du ticket de caisse
-        return redirect('colis_apps:list.coli')  #redirect('colis_apps:detail.coli', coli.id )
+
+        current_user_groups = request.user.groups.values_list('name', flat=True)
+            
+        if 'douala' in current_user_groups  :
+            return redirect('colis_apps:detail.coli', coli.id )
+        else :
+            return redirect('colis_apps:list.coli') 
+
     else:
         coli_form = ColiForm( None,  instance=item )
         file_form = ColiFileForm()

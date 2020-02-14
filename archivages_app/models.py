@@ -43,6 +43,12 @@ class Scan(models.Model):
     observation = models.TextField()
     history = HistoricalRecords(inherit=True)
 
+    def __str__(self):
+        return '{}'.format( self.libelle )
+
+    class Meta:
+        ordering = ['-date']
+
 
 class ScanFichier(models.Model):
 
