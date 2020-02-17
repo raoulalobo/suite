@@ -34,8 +34,8 @@ ALLOWED_HOSTS = ['192.168.8.124','ec2-3-13-36-233.us-east-2.compute.amazonaws.co
 
 INSTALLED_APPS = [
     #'django_select2',
-    'dal',
-    'dal_select2',
+    #'dal',
+    #'dal_select2',
     #'suit',
     'account',
     'grappelli',
@@ -176,8 +176,8 @@ DEFAULT_FROM_EMAIL = 'finexs-informatique@finexsvoyages.net'
 
 
 
-AWS_ACCESS_KEY_ID = 'AKIAQWRU5E5ODR37AHWGATRF'
-AWS_SECRET_ACCESS_KEY = 'mLdQYCiKJL2bTfaAfW6lyrtZ8sn5OdmY7ZNuCEMnatrf'
+AWS_ACCESS_KEY_ID = 'AKIAQWRU5E5ODR37AHWG'
+AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'scanfinexs'
 #AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
