@@ -81,7 +81,7 @@ class Bordereau(Scan):
     #A ajouter , mais sera note dans observation pour un debut
     #chauffeur = models.CharField( max_length=50, default='N.A')
 
-class Bleue(Scan):
+class Bleue(Scan): # En verite Carte Grises
 
     numero_bleue = models.CharField( max_length=50, unique=True, default='N.A'  )
 
