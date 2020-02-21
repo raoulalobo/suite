@@ -176,8 +176,8 @@ DEFAULT_FROM_EMAIL = 'finexs-informatique@finexsvoyages.net'
 
 
 
-AWS_ACCESS_KEY_ID = ''
-AWS_SECRET_ACCESS_KEY = ''
+AWS_ACCESS_KEY_ID = 'ras'
+AWS_SECRET_ACCESS_KEY = 'ras'
 AWS_STORAGE_BUCKET_NAME = 'scanfinexs'
 #AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
@@ -235,3 +235,5 @@ CELERY_BEAT_SCHEDULE = {
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 900 # set just 10 seconds to test
 SESSION_SAVE_EVERY_REQUEST = True
+
+#
