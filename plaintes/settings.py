@@ -176,8 +176,8 @@ DEFAULT_FROM_EMAIL = 'finexs-informatique@finexsvoyages.net'
 
 
 
-AWS_ACCESS_KEY_ID = 'AKIAQWRU5E5OOJJ353MC'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
 AWS_STORAGE_BUCKET_NAME = 'scanfinexs'
 #AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
@@ -225,7 +225,8 @@ CELERY_BROKER_URL = 'amqp://localhost'
 CELERY_BEAT_SCHEDULE = {
     'task-number-one': {
         'task': 'archivages_app.tasks.alert',
-        'schedule': crontab(minute=0, hour='6')
+        #'schedule': crontab(minute=0, hour='6'),
+        'schedule': 30.0
     }
 }
 
