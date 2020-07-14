@@ -2,148 +2,140 @@
 {% load crispy_forms_tags %}
 {% load group_filter %}
 
-{% block extrahead %} {{ colis.form.media }}  {% endblock %}
+{% block extrahead %} {{ colis.form.media }} {% endblock %}
 
 
 {% block title %}{% endblock %}
 
-{% block foot-javascript %} 
+{% block foot-javascript %}
 <script>
-    $("#id_numero_colis").change(function () {
-      console.log( $(this).val() );
-    });
-  </script>
+
+</script>
 {% endblock %}
 
 
 {% block 'content' %}
-    
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <form method="get">
-                    
-                        {% csrf_token %}
-                            
-                        <div class="row" >
 
-                            <div class="col-md-6">
-                                {{ colis.form.date_lte|as_crispy_field }}
-                            </div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form method="get">
 
-                            <div class="col-md-6">
-                                {{ colis.form.date_gte|as_crispy_field }}
-                            </div>
+                    {% csrf_token %}
 
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            {{ colis.form.date_lte|as_crispy_field }}
                         </div>
 
-                        <div class="row" >
+                        <div class="col-md-6">
+                            {{ colis.form.date_gte|as_crispy_field }}
+                        </div>
 
-                            <div class="col-md-4">
-                                {{ colis.form.numero_colis|as_crispy_field }}
-                            </div>
+                    </div>
 
-                            <div class="col-md-4">
-                                {{ colis.form.telephone_exp|as_crispy_field }}
-                            </div>
+                    <div class="row">
 
-                            <div class="col-md-4">
-                                {{ colis.form.telephone_dest|as_crispy_field }}
-                            </div>
-                        
+                        <div class="col-md-4">
+                            {{ colis.form.numero_colis|as_crispy_field }}
+                        </div>
+
+                        <div class="col-md-4">
+                            {{ colis.form.telephone_exp__phone|as_crispy_field }}
+                        </div>
+
+                        <div class="col-md-4">
+                            {{ colis.form.telephone_dest|as_crispy_field }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            {{ colis.form.immatriculation__immatriculation|as_crispy_field }}
+                        </div>
+
+                        <div class="col-md-4">
+                            {{ colis.form.etat_colis|as_crispy_field }}
+                        </div>
+
+                        <div class="col-md-4">
+                            {{ colis.form.destination|as_crispy_field }}
                         </div>
 
 
-                        <div class="row" >
+                    </div>
 
-                            <div class="col-md-4">
-                                {{ colis.form.immatriculation|as_crispy_field }}
-                            </div>
+                    <button type="submit">Lancer la recherche</button>
 
-                            <div class="col-md-4">
-                                {{ colis.form.etat_colis|as_crispy_field }}
-                            </div>
-
-                            <div class="col-md-4">
-                                {{ colis.form.destination|as_crispy_field }}
-                            </div>
-
-                        
-                        </div>
-
-                        <button type="submit">Lancer la recherche</button>
-
-                    </form>
-                </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="outer-w3-agile mt-3">
-        <div class="row">
-            <div class="add-button"> <a href="{% url 'colis_apps:add.coli'  %}" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle"></i> Ajouter</a></div>
-            {% if request.user|has_group:"manager" %}
-                <div class="add-button"> <a href="{% url 'colis_apps:rapport.coli'  %}" class="btn btn-success btn-sm"><i class="far fa-file-excel"></i> Rapport</a></div>
-            {% endif %}
-        </div>
+<div class="outer-w3-agile mt-3">
+    <div class="row">
+        <div class="add-button"> <a href="{% url 'colis_apps:add.coli'  %}" class="btn btn-primary btn-sm"><i
+                    class="fas fa-plus-circle"></i> Ajouter</a></div>
+        {% if request.user|has_group:"manager" %}
+        <div class="add-button"> <a href="{% url 'colis_apps:rapport.coli'  %}" class="btn btn-success btn-sm"><i
+                    class="far fa-file-excel"></i> Rapport</a></div>
+        <div class="add-button"> <a href="{% url 'colis_apps:chart'  %}" class="btn btn-secondary btn-sm"><i
+                    class="far fa-chart-bar"></i> Chart</a></div>
+        {% endif %}
     </div>
+</div>
 
-    <!-- table7 -->
-                <div class="outer-w3-agile mt-3">
-                    <h4 class="tittle-w3-agileits mb-4">{{colis.qs|length}} resultat(s) trouve(s), {{montant}}FCFA en caisse</h4>
-                    
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>_#</th>
-                                    <th>ID</th>
-                                    <th>Date_Expedition</th>
-                                    <th>Status</th>
-                                    <th>Valeur</th>
-                                    <th>Montant</th>
-                                    <th>Tel. Exp.</th>
-                                    <th>Tel. Dest.</th>
-                                    <th>Libelle</th>
-                                    <th>immatriculation.</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                                {% for coli in colis.qs %} {# Lire les plaintes trouvees  #}
-                                    <tr>
-                                         <th scope="row"> 
-                                            <a href="{% url 'colis_apps:update.coli' coli.id %}">{{ forloop.revcounter }}{# Comptage auto. #}</a>
-                                        </th>
-                                        <td>{{coli.numero_colis}}</td>
-                                        <td>{{coli.dateheure}}</td>
-                                        <td>{{coli.etat_colis}}</td>
-                                        <td>{{coli.valeur_declaree}}</td>
-                                        <td>{{coli.montant}}</td>
-                                        <td>{{coli.telephone_exp}}</td>
-                                        <td>{{coli.telephone_dest}}</td>
-                                        <td>{{coli.libelle}}</td>
-                                        <td>{{coli.immatriculation}}</td>
-                                        
-                                    </tr>
-                                
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-    <!--// table7 -->
+<!-- table7 -->
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">{{colis.qs|length}} resultat(s) trouve(s), {{montant}}FCFA en caisse</h4>
 
-    
-    
-    
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>_#</th>
+                    <th>ID</th>
+                    <th>Date_Expedition</th>
+                    <th>Status</th>
+                    <th>Valeur</th>
+                    <th>Montant</th>
+                    <th>Tel. Exp.</th>
+                    <th>Tel. Dest.</th>
+                    <th>Libelle</th>
+                    <th>immatriculation.</th>
+                </tr>
+            </thead>
+            <tbody>
 
+                {% for coli in colis.qs %} {# Lire les plaintes trouvees  #}
+                <tr>
+                    <th scope="row">
+                        <a
+                            href="{% url 'colis_apps:update.coli' coli.id %}">{{ forloop.revcounter }}{# Comptage auto. #}</a>
+                    </th>
+                    <td>{{coli.numero_colis}}</td>
+                    <td>{{coli.dateheure}}</td>
+                    <td>{{coli.etat_colis}}</td>
+                    <td>{{coli.valeur_declaree}}</td>
+                    <td>{{coli.montant}}</td>
+                    <td>{{coli.telephone_exp}}</td>
+                    <td>{{coli.telephone_dest}}</td>
+                    <td>{{coli.libelle}}</td>
+                    <td>{{coli.immatriculation}}</td>
 
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--// table7 -->
 
 {% endblock %}
-
-
-
-
-

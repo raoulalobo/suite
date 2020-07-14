@@ -8,9 +8,31 @@ import datetime
 from django.db.models import Sum
 from .utils import rosine , ajout_de_scans , mise_a_jour_scans , suppression_scan , suppression_scan_fichier
 from django.contrib.auth.decorators import permission_required , login_required
+from dal import autocomplete
+from cars_app.models import Car
+
 
 # Create your views here.
 #--------------------------------------------------------------------------------------#
+
+#django-autocomplete-light
+class CarAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+
+        qs = Car.objects.all()
+
+        if self.q:
+            qs = qs.filter(immatriculation__icontains=self.q)
+
+        return qs
+
+    def get_result_label(self, item):
+        return item.immatriculation
+
+
+
+
 
 @permission_required('archivages_app.view_scan', login_url='colis_apps:denied')
 def list_facture(request):

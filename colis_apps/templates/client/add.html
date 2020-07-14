@@ -1,0 +1,90 @@
+{% extends "base_.html" %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+
+{% block extrahead %}
+
+    {{ client_form.media }}
+    {{ client_form.media.css }}
+
+{% endblock %}
+
+
+
+{% block title %} {% endblock %}
+
+{% block 'content' %}
+
+
+<div class="outer-w3-agile mt-3">
+    <div class="row">
+        <div class="add-button"> <a href="{% url 'colis_apps:add.coli'  %}" class="btn btn-primary btn-sm"><i class="fas fa-step-backward"></i> Revenir a l'envoie de coli</a></div>
+    </div>
+</div>
+                
+<section class="forms-section">
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- Forms-1 -->
+            <div class="outer-w3-agile col-xl mt-3 mr-xl-3" id="printElement">
+                <h4 class="tittle-w3-agileits mb-4">Add/Modify/Details</h4>
+                >
+                <form method="post" enctype="multipart/form-data" class="js-book-create-form">
+
+                    {% csrf_token %}
+
+                    {% bootstrap_form client_form %}
+
+                    </br>
+                    <button type="submit" class="btn btn-default btn-sm">Ajouter .</button>
+                    <a href="#supprimer"><i class="fas fa-trash"></i> Supprimer</a>
+                                
+                </form>
+            </div>
+            <!--// Forms-1 -->
+
+            <!-- Forms-2 -->
+            <div class="outer-w3-agile col-xl mt-3">
+                        <h4 class="tittle-w3-agileits mb-4">Instructions : </h4>
+                        <div>
+                            1-Remplir tous les champs du formulaire et valider .</br>
+                        </div>
+                            
+                        {% if update %}
+                        <h4 class="tittle-w3-agileits mb-4" id="supprimer">Suppression : </h4>
+                        <div>
+                            Vous etes sur le point de supprimer cette donnee, elle ne sera plus presente en base de donnees et vous ne pourrez plus jamais la consulter. <a href="{% url 'colis_apps:delete.client' item.id %}" class="btn btn-danger btn-sm app"> Confirmer la suppression </a>
+                        </div></br></br>
+                        {% endif %}
+
+                        <h4 class="tittle-w3-agileits mb-4">Historique : </h4>
+                        <div class="widget-body">
+                            <div class="streamline">
+                                {% for h in history %}
+                                <div class="sl-item border-left border-success">
+                                    <div class="sl-content">
+                                        <small class="text-muted">{{ h.history_date }}</small>
+                                        <p>{{ h.history_type }} : fait par {{ h.history_user }}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>              
+            </div>
+            <!--// Forms-2 -->
+        </div>  
+    </div>                  
+</section>
+
+{{ coli_form.media.js }}
+
+{% endblock %}
+
+
+{% block foot-javascript %}
+<script>
+
+</script>
+{% endblock %}
+

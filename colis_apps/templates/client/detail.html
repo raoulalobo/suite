@@ -1,0 +1,119 @@
+{% extends "base_.html" %}
+{% load crispy_forms_tags %}
+{% load group_filter %}
+{% load static %}
+{% block extrahead %} {{ colis.form.media }} {% endblock %}
+
+
+{% block title %}{% endblock %}
+
+{% block foot-javascript %}
+<script>
+
+</script>
+{% endblock %}
+
+
+{% block 'content' %}
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Stats -->
+        <div class="outer-w3-agile col-xl">
+            <div class="stat-grid p-3 d-flex align-items-center justify-content-between bg-primary">
+                <div class="s-l">
+                    <h5>Coli(s) envoye(s)</h5>
+                    <p class="paragraph-agileits-w3layouts text-white">{{item.latest}}</p>
+                </div>
+                <div class="s-r">
+                    <h6>{{item.coli_envoye|length}}
+                        <a href="{% url 'colis_apps:add.client'%}"><i class="fas fa-tasks"></i></a>
+                    </h6>
+                </div>
+            </div>
+            <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between bg-success">
+                <div class="s-l">
+                    <h5>Coli(s) recu(s)</h5>
+                    <p class="paragraph-agileits-w3layouts">-</p>
+                </div>
+                <div class="s-r">
+                    <h6>{{item.coli_recu|length}}
+                        <i class="fas fa-tasks"></i>
+                    </h6>
+                </div>
+            </div>
+            <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between bg-danger">
+                <div class="s-l">
+                    <h5>Coli(s) perdu(s)</h5>
+                    <p class="paragraph-agileits-w3layouts">Lorem Ipsum</p>
+                </div>
+                <div class="s-r">
+                    <h6>0
+                        <i class="fas fa-tasks"></i>
+                    </h6>
+                </div>
+            </div>
+            <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between bg-warning">
+                <div class="s-l">
+                    <h5>Sondage(s)</h5>
+                    <p class="paragraph-agileits-w3layouts">Dernier sondage le : </p>
+                </div>
+                <div class="s-r">
+                    <h6>0
+                        <i class="fas fa-tasks"></i>
+                    </h6>
+                </div>
+            </div>
+        </div>
+        <!--// Stats -->
+
+        <!-- Pie-chart -->
+        <div class="outer-w3-agile col-xl ml-xl-3 mt-xl-0 mt-3">
+            <div class="profile-main-w3ls">
+                <div class="profile-pic wthree">
+                    <img src="{% static 'images/noimage.jpg' %}" class="img-fluid" alt="Responsive image">
+                    <h3>{{item.nom}}</h3>
+                    <p>{{item.phone}}</p>
+                </div>
+                <div class="w3-message">
+                    <h5>About Me</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat sapien, lobortis id felis
+                        eu, egestas venenatis nisl.</p>
+                    <div class="w3ls-touch">
+
+                        <div class="social">
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fab fa-google-plus-g"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--// Pie-chart -->
+    </div>
+</div>
+
+
+
+{% endblock %}

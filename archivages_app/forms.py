@@ -6,13 +6,18 @@ from django.forms import ClearableFileInput , Textarea
 #from bootstrap_datepicker_plus import DateTimePickerInput
 from tempus_dominus.widgets import DatePicker, TimePicker, DateTimePicker
 from django.utils.translation import gettext_lazy as _
+from colis_apps.models import Client 
+from cars_app.models import Car
+from dal import autocomplete , forward
 
 
 class ScanForm(forms.ModelForm):
 
+    cars = forms.ModelChoiceField( queryset=Car.objects.all(),widget=autocomplete.ModelSelect2(url='country-autocomplete'))
+
     class Meta:
         model = Scan
-        fields = ( 'date', 'ville', 'cars', 'libelle' )
+        fields = ( 'date', 'ville', 'libelle', 'cars' )
         labels = {
             'date': _('Date'),
         }
@@ -28,7 +33,7 @@ class ScanForm(forms.ModelForm):
 
 
 class FactureForm(ScanForm):
-
+    
     class Meta(ScanForm.Meta):
         model = Facture
         fields = ScanForm.Meta.fields +('demandeur','caissier','montant','categorie' , 'observation')
@@ -73,9 +78,11 @@ class AssuranceForm(ScanForm):
 
 class PlainteForm(ScanForm):
 
+    client = forms.ModelChoiceField( queryset=Client.objects.all(), widget=autocomplete.ModelSelect2(url='client-phone-autocomplete'))
+
     class Meta(ScanForm.Meta):
         model = Plainte
-        fields = ScanForm.Meta.fields + ('plaignant','phone','status','observation' )
+        fields = ScanForm.Meta.fields + ('client','status','observation' )
 
 
 #----------------------------------------------------------------------------------------#

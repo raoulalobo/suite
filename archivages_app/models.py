@@ -3,6 +3,7 @@ from datetime import date
 from django.utils import timezone
 from django.db import models
 from cars_app.models import Car
+from colis_apps.models import Client
 from django.conf import settings 
 from django.utils import timezone
 from django.dispatch import receiver
@@ -98,8 +99,7 @@ class Plainte(Scan):
         (NON, 'Non'),
         (NA, 'NA'),
     )
-    plaignant = models.CharField( max_length=50, default='N.A' )
-    phone = models.CharField( max_length=50, default='N.A' )
+    client = models.ForeignKey( Client, null=True , on_delete=models.SET_NULL)
     status = models.CharField( max_length=16, choices=STATUS_CHOICES, default=NA, )
 
 

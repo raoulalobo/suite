@@ -1,0 +1,101 @@
+{% extends "base_.html" %}
+{% load crispy_forms_tags %}
+{% load group_filter %}
+
+{% block extrahead %} {{ clients.form.media }} {% endblock %}
+
+
+{% block title %}
+{% endblock %}
+
+{% block foot-javascript %}
+{% endblock %}
+
+
+{% block 'content' %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form method="get">
+
+                    {% csrf_token %}
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            {{ clients.form.date_lte|as_crispy_field }}
+                        </div>
+
+                        <div class="col-md-6">
+                            {{ clients.form.date_gte|as_crispy_field }}
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            {{ clients.form.phone|as_crispy_field }}
+                        </div>
+
+                        <div class="col-md-6">
+                            {{ clients.form.nom|as_crispy_field }}
+                        </div>
+
+                    </div>
+
+                    <button type="submit">Lancer la recherche</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="outer-w3-agile mt-3">
+    <div class="row">
+        <div class="add-button"> <a href="{% url 'colis_apps:add.client'  %}" class="btn btn-primary btn-sm"><i
+                    class="fas fa-plus-circle"></i> Ajouter</a></div>
+    </div>
+</div>
+
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">{{clients.qs|length}} resultat(s) trouve(s)</h4>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>_#</th>
+                    <th>Telephone</th>
+                    <th>Nom</th>
+                    <th>CNI</th>
+                    <th>Birthday</th>
+                    <th>Ville</th>
+                    <th>Quartier</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for client in clients.qs %}
+                <tr>
+                    <th scope="row">
+                        <a href="{% url 'colis_apps:client.coli' client.id %}">{{ forloop.revcounter }}{# Comptage auto. #}</a>
+                    </th>
+                    <td>{{client.phone}}</td>
+                    <td>{{client.nom}}</td>
+                    <td>{{client.cni}}</td>
+                    <td>{{client.birthday}}</td>
+                    <td>{{client.ville}}</td>
+                    <td>{{client.quartier}}</td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "base_.html" %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+
+{% block extrahead %}
+
+{{ client_form.media }}
+{{ client_form.media.css }}
+
+{% endblock %}
+
+
+
+{% block title %} {% endblock %}
+
+{% block 'content' %}
+
+<div class="outer-w3-agile mt-3">
+  <div class="row">
+    <div class="add-button"> <a href="{% url 'colis_apps:list.coli'  %}" class="btn btn-primary btn-sm"><i
+          class="fas fa-step-backward"></i> Revenir a la liste</a></div>
+  </div>
+</div>
+
+<div id="container" style="width: 100%;">
+  <canvas id="population-chart" data-url="{% url 'colis_apps:chart.coli' %}">Your browser does not support the canvas
+    element.</canvas>
+</div>
+
+{% endblock %}
+
+
+{% block foot-javascript %}
+<script>
+  $(function () {
+
+    var $populationChart = $("#population-chart");
+    $.ajax({
+      url: $populationChart.data("url"),
+      success: function (data) {
+
+        var ctx = $populationChart[0].getContext("2d");
+
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: data.labels,
+            datasets: [{
+              label: 'Revenus',
+              backgroundColor: 'blue',
+              data: data.data
+            }]
+          },
+          options: {
+            responsive: true,
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Revenus journaliers Service Coli'
+            }
+          }
+        });
+
+      }
+    });
+
+  });
+
+</script>
+{% endblock %}

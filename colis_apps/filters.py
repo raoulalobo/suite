@@ -1,50 +1,54 @@
 import django_filters
-from .models import Coli
+from .models import Coli , Client
 from tempus_dominus.widgets import DatePicker, TimePicker, DateTimePicker
-#from bootstrap_datepicker.widgets import DatePicker
-from bootstrap_datepicker_plus import DateTimePickerInput , DatePickerInput , TimePickerInput
 from django.db import models
 from django import forms
 import datetime
-from django_filters.widgets import RangeWidget
 
 class ColiFilter(django_filters.FilterSet):
 
-    date_lte = django_filters.DateFilter(field_name='dateheure', 
+    date_lte = django_filters.DateTimeFilter(field_name='dateheure', 
     lookup_expr='gte' , 
     label='Date debut' , 
-    widget= DatePicker( options={'format': 'MM/D/YYYY'}, attrs={'append': 'fa fa-calendar',} ) )
+    widget= DateTimePicker( 
+        options={'format': 'MM/D/YYYY HH:mm' , "icons": {"time": "fa fa-clock"} }, 
+        attrs={'append': 'fa fa-calendar',} ) )
     
-    date_gte = django_filters.DateFilter(field_name='dateheure', 
+    date_gte = django_filters.DateTimeFilter(field_name='dateheure', 
     lookup_expr='lte' , 
     label='Date fin' , 
-    widget= DatePicker( options={'format': 'MM/D/YYYY'}, attrs={'append': 'fa fa-calendar',} ) )
+    widget= DateTimePicker( 
+        options={'format': 'MM/D/YYYY HH:mm', "icons": {"time": "fa fa-clock"} }, 
+        attrs={'append': 'fa fa-calendar',} ) )
     
-    #time_lte = django_filters.TimeFilter(field_name='dateheure', 
-    #lookup_expr='time__gte' , 
-    #label='Heure debut' , 
-    #widget= TimePicker( options={'format': 'HH:mm'}, attrs={'append': 'fa fa-clock',} ) )
-    
-    #time_gte = django_filters.TimeFilter(field_name='dateheure', 
-    #lookup_expr='time__lte' , 
-    #label='Heure fin' , 
-    #widget= TimePicker( options={'format': 'HH:mm'}, attrs={'append': 'fa fa-clock',} ) )
-    
-    #datetime = django_filters.DateTimeFromToRangeFilter( widget=RangeWidget(attrs={'type': DateTimePickerInput() }) )
     numero_colis = django_filters.CharFilter(label='Colis ID', lookup_expr='icontains')
-    telephone_exp = django_filters.CharFilter(label='Tel. Exp.', lookup_expr='icontains')
-    telephone_dest = django_filters.CharFilter(label='Tel. Dest.', lookup_expr='icontains')
-    immatriculation__immatriculation = django_filters.CharFilter( label='Imm.', lookup_expr='icontains')
+    telephone_exp__phone = django_filters.CharFilter(label='Tel. Exp.', lookup_expr='icontains')
+    telephone_dest__phone = django_filters.CharFilter(label='Tel. Dest.', lookup_expr='icontains')
+    immatriculation__immatriculation = django_filters.CharFilter(  label='Imm.', lookup_expr='icontains')
 
     class Meta :
         model = Coli
-        fields = ['numero_colis', 'telephone_exp' , 'immatriculation','etat_colis','destination']
-        filter_overrides = {
-            models.DateTimeField : {
-                'filter_class': django_filters.DateTimeFilter,
-                'extra': lambda f : {
-                    'widget': DateTimePickerInput(),
-                },
-            },
-        }
+        fields = ['numero_colis', 'telephone_exp' , 'telephone_dest','etat_colis','destination']
 
+class ClientFilter(django_filters.FilterSet):
+
+    date_lte = django_filters.DateTimeFilter(field_name='client_created_at', 
+    lookup_expr='gte' , 
+    label='Date debut' , 
+    widget= DateTimePicker( 
+        options={'format': 'MM/D/YYYY HH:mm'}, 
+        attrs={'append': 'fa fa-calendar',} ) )
+    
+    date_gte = django_filters.DateTimeFilter(field_name='client_created_at', 
+    lookup_expr='lte' , 
+    label='Date fin' , 
+    widget= DateTimePicker( 
+        options={'format': 'MM/D/YYYY HH:mm'}, 
+        attrs={'append': 'fa fa-calendar',} ) )
+
+    phone = django_filters.CharFilter(label='Telephone', lookup_expr='icontains')
+    nom = django_filters.CharFilter(label='Nom', lookup_expr='icontains')
+
+    class Meta :
+        model = Client
+        fields = ['phone', 'nom']

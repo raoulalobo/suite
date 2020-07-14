@@ -33,15 +33,17 @@ ALLOWED_HOSTS = ['192.168.8.124','ec2-3-13-36-233.us-east-2.compute.amazonaws.co
 # Application definition
 
 INSTALLED_APPS = [
-    #'django_select2',
-    #'dal',
-    #'dal_select2',
+    'django_select2',
+    'dal',
+    'dal_select2',
     #'suit',
+    #'selectable',      autocomplete echec
+    #'ajax_select',     autocomplete echec
     'account',
     'grappelli',
     'bootstrap4',
-    'bootstrap_datepicker_plus',
-    'bootstrap_datepicker',
+    #'bootstrap_datepicker_plus',
+    #'bootstrap_datepicker',
     'tempus_dominus',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -57,6 +59,7 @@ INSTALLED_APPS = [
     'django_filters',
     'cars_app',
     'colis_apps',
+    #'bagages_apps',
     'archivages_app',
     'import_export',
     'crispy_forms',
@@ -123,11 +126,13 @@ CACHE_TTL = 60 * 15
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake',
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -176,8 +181,7 @@ DEFAULT_FROM_EMAIL = 'finexs-informatique@finexsvoyages.net'
 
 
 
-AWS_ACCESS_KEY_ID = ''
-AWS_SECRET_ACCESS_KEY = ''
+
 AWS_STORAGE_BUCKET_NAME = 'scanfinexs'
 #AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
@@ -219,7 +223,7 @@ LOGIN_URL = 'account:login'
 LOGOUT_URL = 'account:logout'
 
 # Celery
-CELERY_BROKER_URL = 'amqp://localhost'
+#CELERY_BROKER_URL = 'amqp://localhost'
 
 # Other Celery settings
 CELERY_BEAT_SCHEDULE = {

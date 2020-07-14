@@ -10,8 +10,8 @@ def f():
 # Create your models here.
 class Car(models.Model):
     id = models.UUIDField( primary_key=True, default=uuid.uuid4, editable=False )
-    immatriculation = models.CharField( max_length=100, default='N.A', unique=True  )
-    seat = models.PositiveSmallIntegerField()
+    immatriculation = models.CharField( max_length=100, unique=True  )
+    seat = models.PositiveSmallIntegerField(default=0)
     chassis = models.CharField( max_length=100, default = 'N.A' )
     marque = models.CharField( max_length=100, default='N.A' )
     Type_vehicule = models.CharField( max_length=100, default='N.A' )

@@ -3,8 +3,13 @@
 {% load crispy_forms_tags %}
 
 {% block extrahead %}
-    {{ coli_form.media }}
-    {{ file_form.media }}
+
+{{ coli_form.media }}
+{{ coli_form.media.css }}
+
+{{ file_form.media }}
+
+
 {% endblock %}
 
 
@@ -12,34 +17,40 @@
 {% block title %} {% endblock %}
 
 {% block 'content' %}
+
+
 <div class="outer-w3-agile mt-3">
     <div class="row">
-        <div class="add-button"> <a href="{% url 'colis_apps:list.coli'  %}" class="btn btn-primary btn-sm"><i class="fas fa-step-backward"></i> Revenir a la liste</a></div>
+        <div class="add-button"> <a href="{% url 'colis_apps:list.coli'  %}" class="btn btn-primary btn-sm"><i
+                    class="fas fa-step-backward"></i> Revenir a la liste</a></div>
     </div>
 </div>
-                
+
 <section class="forms-section">
     <div class="container-fluid">
         <div class="row">
             <!-- Forms-1 -->
             <div class="outer-w3-agile col-xl mt-3 mr-xl-3" id="printElement">
                 <h4 class="tittle-w3-agileits mb-4">Add/Modify/Details</h4>
+                <a href="{% url 'colis_apps:add.client'%}"><u>Ajouter de nouveaux clients</u></a></br>
+                <a href="{% url 'colis_apps:list.client'%}"><u>Liste de clients</u></a></br></br>
                 <form method="post" enctype="multipart/form-data" class="js-book-create-form">
 
                     {% csrf_token %}
+
                     {% bootstrap_form coli_form %}
                     {% bootstrap_form file_form %}
 
                     {% for j in joint %}
                     <!-- Modal recu-->
-                    <div class="modal fade" id={{j.id}} tabindex="-1" role="dialog" >
+                    <div class="modal fade" id={{j.id}} tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
-                                            
+
                                 <div class="modal-header">
                                     <h5 class="modal-title">colis #{{j.coli.numero_colis}}</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
+                                        <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
 
@@ -57,67 +68,61 @@
                     <!-- fin Modal -->
 
                     <div>
-                        <a href="#" data-toggle="modal" data-target=#{{j.id}} >Image {{ forloop.counter }} </a> <a href="{% url 'colis_apps:delete.file' j.id j.coli_id %}" ><i class="fas fa-times" style="color:red"></i></a>
+                        <a href="#" data-toggle="modal" data-target=#{{j.id}}>Image {{ forloop.counter }} </a> <a
+                            href="{% url 'colis_apps:delete.file' j.id j.coli_id %}"><i class="fas fa-times"
+                                style="color:red"></i></a>
                     </div>
                     {% endfor %}
-                    
+
                     </br>
                     <button type="submit" class="btn btn-default btn-sm">Ajouter .</button>
                     <a href="#supprimer"><i class="fas fa-trash"></i> Supprimer</a>
-                                
+
                 </form>
             </div>
             <!--// Forms-1 -->
 
             <!-- Forms-2 -->
             <div class="outer-w3-agile col-xl mt-3">
-                        <h4 class="tittle-w3-agileits mb-4">Instructions : </h4>
-                        <div>
-                            Remplir tous les champs du formulaire et valider .</br></br>
-                        </div>
-                            
-                        {% if update %}
-                        <h4 class="tittle-w3-agileits mb-4" id="supprimer">Suppression : </h4>
-                        <div>
-                            Vous etes sur le point de supprimer cette donnee, elle ne sera plus presente en base de donnees et vous ne pourrez plus jamais la consulter. <a href="{% url 'colis_apps:delete.coli' item.id %}" class="btn btn-danger btn-sm app"> Confirmer la suppression </a>
-                        </div></br></br>
-                        {% endif %}
+                <h4 class="tittle-w3-agileits mb-4">Instructions : </h4>
+                <div>
+                    1-Remplir tous les champs du formulaire et valider .</br>
+                </div>
 
-                        <h4 class="tittle-w3-agileits mb-4">Historique : </h4>
-                        <div class="widget-body">
-                            <div class="streamline">
-                                {% for h in history %}
-                                <div class="sl-item border-left border-success">
-                                    <div class="sl-content">
-                                        <small class="text-muted">{{ h.history_date }}</small>
-                                        <p>{{ h.history_type }} : fait par {{ h.history_user }}</p>
-                                    </div>
-                                </div>
-                                {% endfor %}
+                {% if update %}
+                <h4 class="tittle-w3-agileits mb-4" id="supprimer">Suppression : </h4>
+                <div>
+                    Vous etes sur le point de supprimer cette donnee, elle ne sera plus presente en base de donnees et
+                    vous ne pourrez plus jamais la consulter. <a href="{% url 'colis_apps:delete.coli' item.id %}"
+                        class="btn btn-danger btn-sm app"> Confirmer la suppression </a>
+                </div></br></br>
+                {% endif %}
+
+                <h4 class="tittle-w3-agileits mb-4">Historique : </h4>
+                <div class="widget-body">
+                    <div class="streamline">
+                        {% for h in history %}
+                        <div class="sl-item border-left border-success">
+                            <div class="sl-content">
+                                <small class="text-muted">{{ h.history_date }}</small>
+                                <p>{{ h.history_type }} : fait par {{ h.history_user }}</p>
                             </div>
-                        </div>              
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
             <!--// Forms-2 -->
-        </div>  
-    </div>                  
+        </div>
+    </div>
 </section>
 
-
+{{ coli_form.media.js }}
 
 {% endblock %}
+
 
 {% block foot-javascript %}
 <script>
- 
-    $("#id_nom_exp").change(function () {
-      console.log( $(this).val() );
-    });
-    $("#id_numero_colis").change(function () {
-      console.log( $(this).val() );
-      //printJS({ printable: 'printElement', type: 'html', targetStyles: ['*'] })
-    });
-
 </script>
 {% endblock %}
-
-{{ form.media.js }}
